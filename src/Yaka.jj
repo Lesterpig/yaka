@@ -1,21 +1,8 @@
-/*
- *
- *       Auteur: Pedrono Marie-Jo
- *
- *  création : 13 février 2002
- *
- *     nature : projet etudiant
- *
- */
-
-
 options{
     JDK_VERSION="1.5";  
 }
 
 PARSER_BEGIN(Yaka)
-
-
 
 public class Yaka {
 
@@ -27,26 +14,26 @@ public class Yaka {
     if (args.length==1) {
       System.out.print(args[args.length-1] + ": ");
       try {
-        input = new java.io.FileInputStream(args[args.length-1]+".yaka");
+        input = new java.io.FileInputStream(args[args.length-1]);
       } catch (java.io.FileNotFoundException e) {
-        System.out.println("Fichier introuvable.");
+        System.out.println("File not found.");
         return;
       }
     } else if (args.length==0) {
-      System.out.println("Lecture sur l'entree standard...");
+      System.out.println("Reading stdin...");
       input = System.in;
     } else {
-      System.out.println("Usage: java Gram [fichier]");
+      System.out.println("Usage: java Yaka [filename]");
       return;
     }
     try {
       analyseur = new Yaka(input);
       analyseur.analyse();
-      System.out.println("analyse syntaxique reussie!");
+      System.out.println("OK!");
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\n"));
-      System.out.println("Erreur de syntaxe : "+msg);
+      System.out.println("Syntax error: "+msg);
     }
   } 
 }
