@@ -3,18 +3,20 @@ import java.util.HashMap;
 public class TabIdent {
   private HashMap<String,Ident> table;
   
-  public TabIdent(int taille) {
+  public TabIdent(int size) {
+    table = new HashMap<String,Ident>(size);
   }
 
-  public Ident chercheIdent(String clef) {
-    return new IdConst();
+  public Ident searchIdent(String key) {
+    return table.get(key);
   }
 
-  public boolean existeIdent(String clef) {
-    return false;
+  public boolean existIdent(String key) {
+    return table.containsKey(key);
   }
 
-  public void rangeIdent(String clef, Ident id) {
+  public void addIdent(String key, Ident id) {
+    table.put(key, id);
   }
 
 }
