@@ -1,4 +1,4 @@
-enum TypeList { BOOLEEN, ENTIER };
+enum TypeList { BOOLEEN, ENTIER, ERREUR };
 
 public abstract class Ident {
   private TypeList type;
