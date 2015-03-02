@@ -1,2 +1,9 @@
-# yaka
-Yaka compiler - INSA Rennes Project
+Yaka
+====
+
+Yaka compiler - INSA Rennes Project.
+
+Presentation
+------------
+
+Yaka is a simple langage for education purposes.
