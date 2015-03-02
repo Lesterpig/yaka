@@ -6,6 +6,10 @@ PARSER_BEGIN(Yaka)
 
 public class Yaka {
 
+  public static Declaration declaration;
+  public static TabIdent tabIdent;
+  public static Expression expression;
+  public static Yvm yvm;
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -39,15 +43,14 @@ public class Yaka {
 }
 
 PARSER_END(Yaka)
-/***************************************/
-/********** TOKEN DEFINITIONS **********/
-/***************************************/
+
+/*************  TOKENS *************/
 
 TOKEN_MGR_DECLS :
 {public static String identLu,chaineLue;
  public static int entierLu;}
 
-/*** Skip whitespace and comments ***/
+/* Skip whitespace and comments */
 SKIP :
 {
   " "
@@ -70,39 +73,39 @@ SKIP :
 
 TOKEN :
 {
-  < BOOLEEN: "BOOLEEN" >
-| < VAR: "VAR" >
-| < FAIRE: "FAIRE" >
-| < SINON: "SINON" >
-| < POUR: "POUR" >
-| < SI: "SI" >
-| < FSI: "FSI">
-| < ENTIER: "ENTIER" >
-| < RETOURNE: "RETOURNE" >
-| < VRAI: "VRAI" >
-| < TANTQUE: "TANTQUE" >
-| <CONST : "CONST">
-| <FAUX : "FAUX">
-| <FAIT : "FAIT">
-| <OU : "OU">
-| <ET : "ET">
-| <NON : "NON">
-| <FONCTION : "FONCTION">
-| <FFONCTION  : "FFONCTION">
-| <PROGRAMME : "PROGRAMME" >
+  <BOOLEEN: "BOOLEEN">
+| <VAR: "VAR">
+| <FAIRE: "FAIRE">
+| <SINON: "SINON">
+| <POUR: "POUR">
+| <SI: "SI">
+| <FSI: "FSI">
+| <ENTIER: "ENTIER">
+| <RETOURNE: "RETOURNE">
+| <VRAI: "VRAI">
+| <TANTQUE: "TANTQUE">
+| <CONST: "CONST">
+| <FAUX: "FAUX">
+| <FAIT: "FAIT">
+| <OU: "OU">
+| <ET: "ET">
+| <NON: "NON">
+| <FONCTION: "FONCTION">
+| <FFONCTION: "FFONCTION">
+| <PROGRAMME: "PROGRAMME" >
 | <FPROGRAMME: "FPROGRAMME" >
-| <PRINCIPAL : "PRINCIPAL">
-| <FPRINCIPAL : "FPRINCIPAL">
-| <ALORS : "ALORS">
-| <ECRIRE : "ECRIRE">
-| <LIRE : "LIRE">
-| <ALALIGNE : "ALALIGNE">
+| <PRINCIPAL: "PRINCIPAL">
+| <FPRINCIPAL: "FPRINCIPAL">
+| <ALORS: "ALORS">
+| <ECRIRE: "ECRIRE">
+| <LIRE: "LIRE">
+| <ALALIGNE: "ALALIGNE">
 
 }
 
 
 
-/*** unites de base nombres, idents,  strings ***/
+/* Unites de base : nombres, idents, chaines */
 TOKEN  :
 {
   < #chiffre : ["0"-"9"] >
@@ -119,9 +122,8 @@ TOKEN  :
 }
 
 
-/**************************************/
-/********debut de la grammaire ********/
-/**************************************/
+/*************  GRAMMAIRE *************/
+
 void analyse() : {}
 {
    <PROGRAMME> <ident>  
@@ -171,17 +173,11 @@ void type() :{}
    <ENTIER>             
  | <BOOLEEN>    
 }
-/*
- * Syntaxe des instructions.
- */
+
 void suiteExpr() : {}
 { (expression() (";" (expression())? )*)? }
 
 
-
-/*
- * Expression .
- */
 void expression() : {}
 {
   simpleExpr() 
@@ -190,8 +186,6 @@ void expression() : {}
   )?
 }
 
-
-
 void simpleExpr() : {}
 {
    terme() 
@@ -199,6 +193,7 @@ void simpleExpr() : {}
    terme()  
    )*
 } 
+
 void terme() : {}
 {
   facteur() 
@@ -206,9 +201,10 @@ void terme() : {}
   facteur() 
   )*
 }
+
 void facteur() : {}
 {   primaire() 
-  |  opNeg() primaire() 
+  | opNeg() primaire() 
 }
 
 void primaire (): {}
@@ -223,7 +219,6 @@ void valeur () : {}
  | <ident>      
  | <VRAI>       
  | <FAUX>       
- 
 }
 
 void opRel() : {}
