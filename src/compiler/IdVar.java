@@ -7,7 +7,7 @@ public class IdVar extends Ident {
     super(t);
 	offset = o;
   }
-  
+
   public int getOffset() {
     return offset;
   }

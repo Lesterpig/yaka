@@ -16,6 +16,10 @@ public class Operateur {
             nbArgs = 2;
     }
 
+    public boolean equals(Operateur e) {
+        return this.operateur == e.operateur;
+    }
+
     public OpList getOp() {
         return operateur;
     }

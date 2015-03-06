@@ -16,7 +16,7 @@ public class IdConst extends Ident {
     super(TypeList.ENTIER);
     value = v;
   }
-  
+
   public int getValue() {
     return value;
   }

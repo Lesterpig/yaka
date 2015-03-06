@@ -9,6 +9,15 @@ public class OperateurTest {
     private Operateur b;
 
     @Test
+    public void testEquals() {
+        a = new Operateur(OpList.PLUS);
+        b = new Operateur(OpList.PLUS);
+        assertTrue(a.equals(b));
+        b = new Operateur(OpList.NEG);
+        assertFalse(a.equals(b));
+    }
+
+    @Test
     public void testNbArgs() {
         a = new Operateur(OpList.SUP);
         assertEquals(2, a.getNbArgs());
