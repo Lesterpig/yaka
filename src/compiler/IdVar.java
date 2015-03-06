@@ -1,3 +1,5 @@
+package compiler;
+
 public class IdVar extends Ident {
   private int offset;
 

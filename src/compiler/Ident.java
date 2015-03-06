@@ -1,3 +1,5 @@
+package compiler;
+
 enum TypeList { BOOLEEN, ENTIER, ERREUR };
 
 public abstract class Ident {

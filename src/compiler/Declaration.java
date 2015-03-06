@@ -1,3 +1,5 @@
+package compiler;
+
 public class Declaration {
 
 	private TypeList type;

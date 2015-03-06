@@ -1,8 +1,11 @@
 options{
-    JDK_VERSION="1.5";  
+    JDK_VERSION="1.5";
 }
 
 PARSER_BEGIN(Yaka)
+
+package generated;
+import compiler.*;
 
 public class Yaka {
 
@@ -11,7 +14,7 @@ public class Yaka {
   public static Expression expression;
   public static Yvm yvm;
 
-  public static void main(String args[]) { 
+  public static void main(String args[]) {
     Yaka analyseur;
     java.io.InputStream input;
 
@@ -39,7 +42,7 @@ public class Yaka {
       msg = msg.substring(0,msg.indexOf("\n"));
       System.out.println("Syntax error: "+msg);
     }
-  } 
+  }
 }
 
 PARSER_END(Yaka)
@@ -65,7 +68,7 @@ SKIP :
 }
 <IN_COMMENT> SKIP:
 {
-   < "*)" >  {SwitchTo(DEFAULT);} 
+   < "*)" >  {SwitchTo(DEFAULT);}
 }
 
 
@@ -109,12 +112,12 @@ TOKEN :
 TOKEN  :
 {
   < #chiffre : ["0"-"9"] >
-| < entier : (<chiffre>)+ > 
+| < entier : (<chiffre>)+ >
     { entierLu = Integer.parseInt(image.toString());
         }
 | < #lettre: ["A"-"Z","a"-"z"] >
 | < ident : <lettre> (<lettre> | <chiffre>)* >
-    {identLu =image.toString(); 
+    {identLu =image.toString();
     }
 | < chaine : "\"" (~["\""])* "\"" | "'" (~["'"])* "'" >
     { chaineLue = image.toString();
@@ -126,15 +129,15 @@ TOKEN  :
 
 void analyse() : {}
 {
-   <PROGRAMME> <ident>  
+   <PROGRAMME> <ident>
    bloc()
-   <FPROGRAMME> 
+   <FPROGRAMME>
 }
 
 void bloc() : {}{
  (declConst())*
- (declVar())*       
-   suiteExpr() 
+ (declVar())*
+   suiteExpr()
 }
 
 void declConst() : {}
@@ -144,34 +147,34 @@ void declConst() : {}
 
 void defConst() : {}
 {
-    
-  <ident>       
+
+  <ident>
    "=" valConst()
-    
+
 }
 
 void valConst() : {}{
-  <entier>      
- | <ident>      
- | <VRAI>       
- | <FAUX>       
+  <entier>
+ | <ident>
+ | <VRAI>
+ | <FAUX>
 }
 
 
 void declVar() : {}
 {
-  <VAR> type()  
-  <ident>       
-  ("," 
-      <ident>  
+  <VAR> type()
+  <ident>
+  (","
+      <ident>
   )* ";"
-    
+
 }
 
 void type() :{}
 {
-   <ENTIER>             
- | <BOOLEEN>    
+   <ENTIER>
+ | <BOOLEEN>
 }
 
 void suiteExpr() : {}
@@ -180,74 +183,72 @@ void suiteExpr() : {}
 
 void expression() : {}
 {
-  simpleExpr() 
-  (opRel() 
-  simpleExpr() 
+  simpleExpr()
+  (opRel()
+  simpleExpr()
   )?
 }
 
 void simpleExpr() : {}
 {
-   terme() 
-   (opAdd() 
-   terme()  
+   terme()
+   (opAdd()
+   terme()
    )*
-} 
+}
 
 void terme() : {}
 {
-  facteur() 
-  (opMul() 
-  facteur() 
+  facteur()
+  (opMul()
+  facteur()
   )*
 }
 
 void facteur() : {}
-{   primaire() 
-  | opNeg() primaire() 
+{   primaire()
+  | opNeg() primaire()
 }
 
 void primaire (): {}
 {
    valeur()
- | "(" expression() ")" 
- 
+ | "(" expression() ")"
+
 }
 
 void valeur () : {}
-{ <entier>      
- | <ident>      
- | <VRAI>       
- | <FAUX>       
+{ <entier>
+ | <ident>
+ | <VRAI>
+ | <FAUX>
 }
 
 void opRel() : {}
 {
-   "="      
- | "<>"     
- | "<"      
- | "<="     
- | ">"      
- | ">="     
-} 
+   "="
+ | "<>"
+ | "<"
+ | "<="
+ | ">"
+ | ">="
+}
 
 void opAdd() : {}
 {
-    "+"     
-  |  "-"  
-  | <OU>    
+    "+"
+  |  "-"
+  | <OU>
 }
 
 void opMul() : {}
 {
-  "*"       
-  | "/"     
-  | <ET>    
-} 
-
-void opNeg() : {}
-{ "-"       
- | <NON>    
+  "*"
+  | "/"
+  | <ET>
 }
 
-
+void opNeg() : {}
+{ "-"
+ | <NON>
+}
