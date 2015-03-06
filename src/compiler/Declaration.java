@@ -8,11 +8,14 @@ public class Declaration {
 	private int varOffset;
 	private TabIdent tabIdent;
 	
+	private String errorLog;
+	
 	public Declaration() {
 		type = TypeList.ERREUR;
 		ident = "";
 		varOffset = -2;
-		tab = Yaka.tabIdent;
+		tabIdent = Yaka.tabIdent;
+		errorLog = "";
 	}
 	
 	public TypeList getType () {
@@ -57,11 +60,11 @@ public class Declaration {
 	
 	/*
 	Met a jour l'objet de type TabIdent de la classe Yaka...
-	TO DO : gestion de l'exception!!!
+	Ajoute une description de l'erreur a errorLog.
 	*/
-	public void ajoutlVar() throws IdentInvalideException {
+	public void ajoutVar(){
 		if(!identValide())
-			throw new IdentInvalideException();
+			errorLog += "L'ident "+ident+" a deja ete declare.\n";
 		else {
 			IdVar var = new IdVar(type, varOffset);
 			this.updateVarOffset();

@@ -164,17 +164,25 @@ void valConst() : {}{
 void declVar() : {}
 {
   <VAR> type()
-  <ident>
+  <ident> 
+  {
+  declaration.setIdent(YakaTokenManager.identLu);
+  declaration.ajoutVar();
+  }
   (","
       <ident>
+	  {
+	  declaration.setIdent(YakaTokenManager.identLu);
+	  declaration.ajoutVar();
+	  }
   )* ";"
 
 }
 
 void type() :{}
 {
-   <ENTIER>
- | <BOOLEEN>
+   <ENTIER> {declaration.setType(TypeList.ENTIER);}
+ | <BOOLEEN> {declaration.setType(TypeList.BOOLEEN);}
 }
 
 void suiteExpr() : {}
