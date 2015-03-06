@@ -33,11 +33,21 @@ public class Expression {
 
     public void traiterOperation() {
         try {
+
             Operateur op = retraitOperateur();
-            //dans la pratique, du fait de l'utilisation d'un objet
-            //Expression de maniere statique, l'appel sur cet objet est
-            //justifie car les operateurs sont uniquement lies a cette instance.
-            op.valider(this);
+
+            //operateur unaire ?
+            if(op.getNbArgs() == 1) {
+                TypeList a = this.retraitType();
+                this.ajoutType(op.typeValide(a, a));
+            }
+            //operateur binaire ?
+            else if(op.getNbArgs() == 2) {
+                TypeList a = this.retraitType();
+                TypeList b = this.retraitType();
+                this.ajoutType(op.typeValide(a, b));
+            }
+
         } catch (EmptyStackException e) {
             e.printStackTrace();
         }

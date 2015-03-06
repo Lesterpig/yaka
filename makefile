@@ -3,7 +3,7 @@
 
 # Vars
 
-TESTS = compiler.OperateurTest
+TESTS = compiler.OperateurTest compiler.ExpressionTest
 
 # Targets
 
