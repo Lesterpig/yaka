@@ -4,6 +4,9 @@ options{
 
 PARSER_BEGIN(Yaka)
 
+package generated;
+import compiler.*;
+
 public class Yaka {
 
   public static Declaration declaration;

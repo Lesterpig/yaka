@@ -1,13 +1,7 @@
 *.class
 
 # JavaCC generated files
-src/ParseException.java
-src/SimpleCharStream.java
-src/Token.java
-src/TokenMgrError.java
-src/Yaka.java
-src/YakaConstants.java
-src/YakaTokenManager.java
+src/generated/*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
