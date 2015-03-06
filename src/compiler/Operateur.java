@@ -75,9 +75,11 @@ public class Operateur {
         }
     }
 
+    /** TODO REFACTOR : valider doit être déplacée dans Expression */
+
     /*
     Cette methode depile les types des parametres de la pile
-    associee a l'expression passee ne parametre,
+    associee a l'expression passee en parametre,
     et reempile le type resultat : ENTIER / BOOLEEN / ERREUR.
     En pratique, elle est appellee dans la classe Expression,
     du fait de l'utilisation d'une instance statique de la classe Expression.

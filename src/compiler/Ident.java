@@ -1,9 +1,7 @@
 package compiler;
 
-enum TypeList { BOOLEEN, ENTIER, ERREUR };
-
 public abstract class Ident {
-  private TypeList type;
+  protected TypeList type;
 
   public Ident(TypeList t) {
     type = t;
@@ -15,5 +13,10 @@ public abstract class Ident {
 
   public void setType(TypeList t) {
     type=t;
+  }
+
+  public String toString() {
+    if (type == TypeList.BOOLEEN) return " BOOL";
+    return " ENT ";
   }
 }

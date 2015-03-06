@@ -35,7 +35,16 @@ public class Yaka {
     }
     try {
       analyseur = new Yaka(input);
+      tabIdent = new TabIdent(100);
+      tabIdent.addIdent("c1", new IdConst(5));
+
       analyseur.analyse();
+
+      /*
+       * Logique Debug
+       */
+      System.out.println(tabIdent.toString()); //Affiche le contenu de tabIdent à la fin
+
       System.out.println("OK!");
     } catch (ParseException e) {
       String msg = e.getMessage();

@@ -21,4 +21,20 @@ public class TabIdent {
     table.put(key, id);
   }
 
+  public String toString() {
+    String res = "\nTabIdent:\n";
+    for (HashMap.Entry<String, Ident> entry : table.entrySet()) {
+      res += "  ";
+        if (entry.getValue() instanceof IdConst)
+          res += "CONST ";
+        else
+          res += "VAR   ";
+
+      res += entry.getKey() + entry.getValue().toString();
+    }
+
+    return res;
+  }
+
 }
+
