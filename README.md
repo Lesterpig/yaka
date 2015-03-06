@@ -1,6 +1,8 @@
 Yaka
 ====
 
+[![Build Status](https://travis-ci.org/Lesterpig/yaka.svg)](https://travis-ci.org/Lesterpig/yaka)
+
 Yaka compiler - INSA Rennes Project.
 
 Presentation
@@ -13,6 +15,7 @@ Usage
 
 ```
 make                    # generates the parser
+make test               # execute unit tests
 make run FILE=test.txt  # executes the parser for file test.txt
 ```
 
