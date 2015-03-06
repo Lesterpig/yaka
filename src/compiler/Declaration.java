@@ -5,9 +5,14 @@ public class Declaration {
 	private TypeList type;
 	private String ident;
 
+	private int varOffset;
+	private TabIdent tabIdent;
+	
 	public Declaration() {
 		type = TypeList.ERREUR;
 		ident = "";
+		varOffset = -2;
+		tab = Yaka.tabIdent;
 	}
 	
 	public TypeList getType () {
@@ -25,5 +30,44 @@ public class Declaration {
 	public void setIdent(String i) {
 		ident = i;
 	}
+	
+	public int getVarOffset() {
+		return varOffset;
+	}
+	
+	public void setVarOffset(int i) {
+		varOffset = i;
+	}
+	
+	public TabIdent getTabIdent() {
+		return tabIdent;
+	}
+	
+	public void updateVarOffset() {
+		varOffset += -2;
+	}
+	
+	/*
+	Teste si l'ident courant est deja present dans Yaka.tabIdent.
+	Retourne faux s'il est present, vrai sinon.
+	*/
+	public boolean identValide() {
+		return !(tab.existIdent(this.getIdent));
+	}
+	
+	/*
+	Met a jour l'objet de type TabIdent de la classe Yaka...
+	TO DO : gestion de l'exception!!!
+	*/
+	public void ajoutlVar() throws IdentInvalideException {
+		if(!identValide())
+			throw new IdentInvalideException();
+		else {
+			IdVar var = new IdVar(type, varOffset);
+			this.updateVarOffset();
+			tab.addIdent(ident, var);
+		}
+	}
+	
 	
 }
