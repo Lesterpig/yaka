@@ -3,11 +3,8 @@ package compiler;
 public class IdConst extends Ident {
   protected int value;
 
-  public IdConst(int v) {
-    value=v;
-  }
-
   public IdConst(boolean v) {
+    super(TypeList.BOOLEEN);
     if (v) {
       value=-1;
     } else {
@@ -15,9 +12,9 @@ public class IdConst extends Ident {
     }
   }
 
-  public IdConst (TypeList t, int v) {
-    super(t);
-	value = v;
+  public IdConst (int v) {
+    super(TypeList.ENTIER);
+    value = v;
   }
   
   public int getValue() {

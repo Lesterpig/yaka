@@ -1,4 +1,5 @@
 package compiler;
+import generated.*;
 
 public class Declaration {
 
@@ -12,7 +13,7 @@ public class Declaration {
 		type = TypeList.ERREUR;
 		ident = "";
 		varOffset = -2;
-		tab = Yaka.tabIdent;
+		tabIdent = Yaka.tabIdent;
 	}
 	
 	public TypeList getType () {
@@ -52,7 +53,7 @@ public class Declaration {
 	Retourne faux s'il est present, vrai sinon.
 	*/
 	public boolean identValide() {
-		return !(tab.existIdent(this.getIdent));
+		return !(tabIdent.existIdent(this.getIdent()));
 	}
 	
 	/*
@@ -65,7 +66,7 @@ public class Declaration {
 		else {
 			IdVar var = new IdVar(type, varOffset);
 			this.updateVarOffset();
-			tab.addIdent(ident, var);
+			tabIdent.addIdent(ident, var);
 		}
 	}
 	
