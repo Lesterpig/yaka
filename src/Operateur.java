@@ -37,7 +37,7 @@ public class Operateur {
 	le type de la seule operande pour un operateur unaire.
 	*/
 	public TypeList typeValide(TypeList t1, TypeList t2) {
-		if(t1 != t2 || t1 == TypeList.ERREUR || t2 == TypeList.ERREUR)
+		if(t1 != t2 || t1 == TypeList.ERREUR)
 			return TypeList.ERREUR;
 		switch(operateur) {
 			case SUP:
