@@ -1,0 +1,11 @@
+language: java
+install:
+  - "sudo apt-get install javacc"
+script:
+  - "make javacc"
+  - "make test"
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+  - openjdk8
