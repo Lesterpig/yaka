@@ -15,6 +15,11 @@ public class Expression {
         operateurs = new Stack<Operateur>();
     }
 
+	public void reinitialiser() {
+		types.clear();
+		operateurs.clear();
+	}
+	
     public void ajoutOperateur(Operateur op) {
         operateurs.add(op);
     }
