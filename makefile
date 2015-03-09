@@ -3,7 +3,7 @@
 
 # Vars
 
-TESTS = compiler.OperateurTest compiler.ExpressionTest compiler.YvmTest compiler.YvmAsmTest
+TESTS = compiler.OperateurTest compiler.ExpressionTest compiler.YvmTest compiler.YvmAsmTest compiler.DeclarationTest
 
 # Targets
 
@@ -28,7 +28,7 @@ javacc:
 
 javac:
 	@echo -n "Compiling... "
-	@find . -name "*.java" -print | xargs javac -d class -classpath .:/usr/share/java/junit4.jar:/usr/share/java/junit.jar
+	@find . -name "*.java" -print | xargs javac -d class -classpath .:/usr/share/java/junit4.jar
 	@echo DONE
 
 run:

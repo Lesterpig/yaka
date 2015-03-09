@@ -9,14 +9,12 @@ public class Declaration {
   private boolean booleen;
 
 	private int varOffset;
-	private TabIdent tabIdent;
 	private String errorLog;
 
 	public Declaration() {
 		type = TypeList.ERREUR;
 		ident = "";
 		varOffset = -2;
-		tabIdent = Yaka.tabIdent;
 		errorLog = "";
 	}
 
@@ -79,7 +77,7 @@ public class Declaration {
 	}
 
 	public TabIdent getTabIdent() {
-		return tabIdent;
+		return Yaka.tabIdent;
 	}
 
 	public void updateVarOffset() {
@@ -91,7 +89,7 @@ public class Declaration {
 	Retourne faux s'il est present, vrai sinon.
 	*/
 	public boolean identValide() {
-		return !(tabIdent.existIdent(this.getIdent()));
+		return !(Yaka.tabIdent.existIdent(ident));
 	}
 
 	/*
@@ -104,7 +102,7 @@ public class Declaration {
 		else {
 			IdVar var = new IdVar(type, varOffset);
 			this.updateVarOffset();
-			tabIdent.addIdent(ident, var);
+			Yaka.tabIdent.addIdent(ident, var);
 		}
 	}
 
@@ -118,7 +116,7 @@ public class Declaration {
       else
         cons = new IdConst(entier);
 
-      tabIdent.addIdent(ident, cons);
+      Yaka.tabIdent.addIdent(ident, cons);
     }
   }
 
