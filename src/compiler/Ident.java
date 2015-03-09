@@ -16,7 +16,14 @@ public abstract class Ident {
   }
 
   public String toString() {
-    if (type == TypeList.BOOLEEN) return " BOOL";
-    return " ENT ";
+    switch(type)
+	{
+	case BOOLEEN:
+		return " BOOL";
+	case ENTIER:
+		return " ENT";
+	default:
+		return " ERR";
+	}
   }
 }

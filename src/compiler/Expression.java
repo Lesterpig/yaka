@@ -13,6 +13,7 @@ public class Expression {
     public Expression() {
         types = new Stack<TypeList>();
         operateurs = new Stack<Operateur>();
+		errorLog = "";
     }
 
 	public void reinitialiser() {
@@ -27,7 +28,7 @@ public class Expression {
     public Operateur retraitOperateur() throws EmptyStackException {
         return operateurs.pop();
     }
-
+	
     public void ajoutType(TypeList t) {
         types.add(t);
     }
@@ -36,6 +37,15 @@ public class Expression {
         return types.pop();
     }
 
+	public TypeList regardeType() {
+		try {
+			return types.peek();
+		} catch (EmptyStackException e) {
+			ajoutLog("La pile des types est vide. Impossible de consulter le sommet de pile.");
+			return TypeList.ERREUR;
+		}
+	}
+	
     public void traiterOperation() {
         try {
 
@@ -58,7 +68,11 @@ public class Expression {
         }
     }
 	
-	public boolean testAffectation(TypeList t1, TypeList t2) {
-		return (t2 != TypeList.ERREUR ) && (t1 == t2);
+	public void ajoutLog(String s) {errorLog += s + "\n";}
+	
+	public void testAffectation(TypeList t1, TypeList t2) {
+		if((t2 == TypeList.ERREUR ) || (t1 != t2))
+			ajoutLog("L'affectation est impossible : erreur de type" + t1 + " =" + t2);
 	}
+	
 }

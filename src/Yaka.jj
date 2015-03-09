@@ -54,7 +54,7 @@ PARSER_END(Yaka)
 /*************  TOKENS *************/
 
 TOKEN_MGR_DECLS :
-{public static String identLu,chaineLue;
+{public static String identLu,chaineLue,identAffect;
  public static int entierLu;}
 
 /* Skip whitespace and comments */
@@ -141,7 +141,7 @@ void analyse() : {}
 void bloc() : {}{
  (declConst())*
  (declVar())*
-   suiteExpr()
+   suiteInstr()
 }
 
 void declConst() : {}
@@ -207,9 +207,21 @@ void type() :{}
  | <BOOLEEN> {declaration.setType(TypeList.BOOLEEN);}
 }
 
-void suiteExpr() : {}
-{ (expression() (";" {expression.reinitialiser();} (expression())? )*)? }
+void suiteInstr() : {}
+{ (instruction() (";" {expression.reinitialiser();} (instruction())? )*)? }
 
+void instruction() : {}
+{
+	affectation() 
+ |	lecture()
+ |	ecriture()
+}
+
+void affectation() : {}
+{
+	<ident> {YakaTokenManager.identAffect = YakaTokenManager.identLu;}
+	"=" expression() {testAffectation(YakaTokenManager.identAffect.getType(),expression.regardeType());}
+}
 
 void expression() : {}
 {
