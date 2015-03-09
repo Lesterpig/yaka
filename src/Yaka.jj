@@ -35,17 +35,12 @@ public class Yaka {
     }
     try {
       analyseur = new Yaka(input);
-      tabIdent = new TabIdent(100);
-      tabIdent.addIdent("c1", new IdConst(5));
+      tabIdent = new TabIdent();
+      declaration = new Declaration();
+      expression = new Expression();
 
       analyseur.analyse();
 
-      /*
-       * Logique Debug
-       */
-      System.out.println(tabIdent.toString()); //Affiche le contenu de tabIdent à la fin
-
-      System.out.println("OK!");
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\n"));
@@ -158,15 +153,33 @@ void defConst() : {}
 {
 
   <ident>
+  {
+    declaration.setIdent(YakaTokenManager.identLu);
+  }
    "=" valConst()
+  {
+    declaration.ajoutConst();
+  }
 
 }
 
 void valConst() : {}{
   <entier>
+  {
+    declaration.setEntier(YakaTokenManager.entierLu);
+  }
  | <ident>
+  {
+    declaration.setConstanteExistante(YakaTokenManager.identLu);
+  }
  | <VRAI>
+  {
+    declaration.setBooleen(true);
+  }
  | <FAUX>
+  {
+    declaration.setBooleen(false);
+  }
 }
 
 

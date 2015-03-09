@@ -5,6 +5,10 @@ import java.util.HashMap;
 public class TabIdent {
   private HashMap<String,Ident> table;
 
+  public TabIdent() {
+    table = new HashMap<String,Ident>();
+  }
+
   public TabIdent(int size) {
     table = new HashMap<String,Ident>(size);
   }
@@ -30,7 +34,7 @@ public class TabIdent {
         else
           res += "VAR   ";
 
-      res += entry.getKey() + entry.getValue().toString();
+      res += entry.getKey() + entry.getValue().toString() + "\n";
     }
 
     return res;

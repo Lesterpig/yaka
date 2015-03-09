@@ -28,7 +28,7 @@ javacc:
 
 javac:
 	@echo -n "Compiling... "
-	@find . -name "*.java" -print | xargs javac -d class -classpath .:/usr/share/java/junit4.jar
+	@find . -name "*.java" -print | xargs javac -d class -classpath .:/usr/share/java/junit4.jar:/usr/share/java/junit.jar
 	@echo DONE
 
 run:

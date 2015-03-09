@@ -5,6 +5,8 @@ public class Declaration {
 
 	private TypeList type;
 	private String ident;
+  private int entier;
+  private boolean booleen;
 
 	private int varOffset;
 	private TabIdent tabIdent;
@@ -33,6 +35,40 @@ public class Declaration {
 	public void setIdent(String i) {
 		ident = i;
 	}
+
+  public int getEntier() {
+    return entier;
+  }
+
+  public void setEntier(int e) {
+    type = TypeList.ENTIER;
+    entier = e;
+  }
+
+  public void setBooleen(boolean b) {
+    type = TypeList.BOOLEEN;
+    booleen = b;
+  }
+
+  public void setConstanteExistante(String s) {
+    if(Yaka.tabIdent.existIdent(s)) {
+      Ident origConst = Yaka.tabIdent.searchIdent(s);
+
+      if (origConst instanceof IdConst) {
+        type = origConst.getType();
+        if (type == TypeList.BOOLEEN) {
+          booleen = ((IdConst)origConst).getValueBool();
+        } else {
+          entier = ((IdConst)origConst).getValue();
+        }
+      } else {
+        errorLog += "Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...\n";
+      }
+      
+    } else {
+      errorLog += "Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...\n";
+    }
+  }
 
 	public int getVarOffset() {
 		return varOffset;
@@ -71,6 +107,20 @@ public class Declaration {
 			tabIdent.addIdent(ident, var);
 		}
 	}
+
+  public void ajoutConst() {
+    if(!identValide()) 
+			errorLog += "L'ident "+ident+" a deja ete declare.\n";
+		else {
+      IdConst cons;
+      if (type == TypeList.BOOLEEN)
+        cons = new IdConst(booleen);
+      else
+        cons = new IdConst(entier);
+
+      tabIdent.addIdent(ident, cons);
+    }
+  }
 
 
 }
