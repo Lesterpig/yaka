@@ -57,5 +57,8 @@ public class Expression {
             e.printStackTrace();
         }
     }
-
+	
+	public boolean testAffectation(TypeList t1, TypeList t2) {
+		return (t2 != TypeList.ERREUR ) && (t1 == t2);
+	}
 }
