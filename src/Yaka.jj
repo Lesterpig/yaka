@@ -220,7 +220,18 @@ void instruction() : {}
 void affectation() : {}
 {
 	<ident> {YakaTokenManager.identAffect = YakaTokenManager.identLu;}
-	"=" expression() {testAffectation(YakaTokenManager.identAffect.getType(),expression.regardeType());}
+	"=" expression() {expression.testAffectation(YakaTokenManager.identAffect.getType(),expression.regardeType());}
+}
+
+void lecture() : {}
+{
+	<LIRE> "(" <ident> ")"
+}
+
+void ecriture() : {}
+{
+	<ECRIRE> ( "(" expression() | <chaine>  ")" )
+ |	<ALALIGNE>
 }
 
 void expression() : {}
