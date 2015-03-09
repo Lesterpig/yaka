@@ -3,6 +3,7 @@ package compiler;
 public class Yvm {
 
     protected String out;
+    protected boolean commentMode = false;
 
     public Yvm() {
         this.out = "";
@@ -12,16 +13,11 @@ public class Yvm {
         return this.out;
     }
 
-    protected void addInstruction(String method) {
+    private void addInstruction(String method) {
+        if(this.commentMode) {
+            this.out += "\n    ; ";
+        }
         this.out += method + "\n";
-    }
-
-    private void addInstruction(String method, String arg) {
-        this.out += method + " " + arg + "\n";
-    }
-
-    private void addInstruction(String method, int arg) {
-        this.out += method + " " + arg + "\n";
     }
 
     /**
@@ -33,7 +29,7 @@ public class Yvm {
     }
 
     public void ouvrePrinc(int arg) {
-        addInstruction("ouvrPrinc", arg);
+        addInstruction("ouvrPrinc " + arg);
     }
 
     public void queue() {
@@ -108,15 +104,15 @@ public class Yvm {
     // Stockage et chargement
 
     public void iload(int arg) {
-        addInstruction("iload", arg);
+        addInstruction("iload " + arg);
     }
 
     public void istore(int arg) {
-        addInstruction("istore", arg);
+        addInstruction("istore " + arg);
     }
 
     public void iconst(int arg) {
-        addInstruction("iconst", arg);
+        addInstruction("iconst " + arg);
     }
 
 }
