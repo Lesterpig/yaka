@@ -60,11 +60,11 @@ public class Declaration {
           entier = ((IdConst)origConst).getValue();
         }
       } else {
-        errorLog += "Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...\n";
+        ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...");
       }
       
     } else {
-      errorLog += "Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...\n";
+      ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...");
     }
   }
 
@@ -98,7 +98,7 @@ public class Declaration {
 	*/
 	public void ajoutVar(){
 		if(!identValide())
-			errorLog += "L'ident "+ident+" a deja ete declare.\n";
+			ajoutLog("L'ident "+ident+" a deja ete declare.\n");
 		else {
 			IdVar var = new IdVar(type, varOffset);
 			this.updateVarOffset();
@@ -108,7 +108,7 @@ public class Declaration {
 
   public void ajoutConst() {
     if(!identValide()) 
-			errorLog += "L'ident "+ident+" a deja ete declare.\n";
+			ajoutLog("L'ident "+ident+" a deja ete declare.\n");
 		else {
       IdConst cons;
       if (type == TypeList.BOOLEEN)
@@ -120,5 +120,10 @@ public class Declaration {
     }
   }
 
-
+  public void ajoutLog(String s) {errorLog += "Ligne " + Yaka.nbLig + " : " + s + "\n";}
+  
+  public void testAffectation(String s) {
+		if(!Yaka.tabIdent.existIdent(s))
+			ajoutLog("Affectation impossible, l'identifiant " + s + " n'existe pas.");
+  }
 }

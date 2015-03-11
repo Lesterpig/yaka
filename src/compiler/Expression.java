@@ -68,11 +68,11 @@ public class Expression {
         }
     }
 	
-	public void ajoutLog(String s) {errorLog += s + "\n";}
+	public void ajoutLog(String s) {errorLog += "Ligne " + Yaka.nbLig + " : " + s + "\n";}
 	
 	public void testAffectation(TypeList t1, TypeList t2) {
 		if((t2 == TypeList.ERREUR ) || (t1 != t2))
-			ajoutLog("L'affectation est impossible : erreur de type" + t1 + " =" + t2);
+			ajoutLog("Affectation impossible, erreur de type" + t1 + " =" + t2);
 	}
 	
 }

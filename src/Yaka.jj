@@ -13,6 +13,8 @@ public class Yaka {
   public static TabIdent tabIdent;
   public static Expression expression;
   public static Yvm yvm;
+  
+  public static int nbLig;
 
   public static void main(String args[]) {
     Yaka analyseur;
@@ -39,6 +41,7 @@ public class Yaka {
       declaration = new Declaration();
       expression = new Expression();
       yvm = new Yvm();
+	  nbLig = 1;
 
       analyseur.analyse();
 
@@ -67,7 +70,7 @@ SKIP :
 {
   " "
 | "\t"
-| "\n"
+| "\n" {nbLig++;}
 | "\r"
 | "(*"   : IN_COMMENT
 }
@@ -228,7 +231,13 @@ void instruction() : {}
 void affectation() : {}
 {
 	<ident> {YakaTokenManager.identAffect = YakaTokenManager.identLu;}
-	"=" expression() {expression.testAffectation(tabIdent.searchIdent(YakaTokenManager.identAffect).getType(),expression.regardeType());}
+	"=" expression() 
+	{
+	if(tabIdent.existIdent(YakaTokenManager.identAffect))
+		expression.testAffectation(tabIdent.searchIdent(YakaTokenManager.identAffect).getType(),expression.regardeType());
+	else
+		declaration.testAffectation(YakaTokenManager.identAffect);
+	}
 }
 
 void lecture() : {}
