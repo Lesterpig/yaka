@@ -63,19 +63,19 @@ public class ExpressionTest {
         e.ajoutType(TypeList.ENTIER);
         e.ajoutOperateur(plus);
 
-        e.traiterOperation();
+        e.traiterOperation(null);
         assertEquals(TypeList.ENTIER, e.retraitType());
         e.ajoutType(TypeList.ENTIER);
 
         e.ajoutType(TypeList.BOOLEEN);
         e.ajoutOperateur(non);
 
-        e.traiterOperation();
+        e.traiterOperation(null);
         assertEquals(TypeList.BOOLEEN, e.retraitType());
         e.ajoutType(TypeList.BOOLEEN);
         e.ajoutOperateur(inf);
 
-        e.traiterOperation();
+        e.traiterOperation(null);
         assertEquals(TypeList.ERREUR, e.retraitType());
     }
 }

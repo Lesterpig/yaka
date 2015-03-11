@@ -1,6 +1,7 @@
 package compiler;
 
 import java.util.HashMap;
+import generated.Yaka;
 
 public class TabIdent {
   private HashMap<String,Ident> table;
@@ -15,6 +16,18 @@ public class TabIdent {
 
   public Ident searchIdent(String key) {
     return table.get(key);
+  }
+
+  public void computeIdent(String ident) {
+    Ident id = searchIdent(ident);
+    Yaka.expression.ajoutType(id.getType());
+
+    if(id instanceof IdVar) {
+      Yaka.yvm.iload(((IdVar) id).getOffset());
+    } else if(id instanceof IdConst) {
+      Yaka.yvm.iconst(((IdConst) id).getValue());
+    }
+
   }
 
   public boolean existIdent(String key) {

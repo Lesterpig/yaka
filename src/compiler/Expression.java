@@ -20,7 +20,7 @@ public class Expression {
 		types.clear();
 		operateurs.clear();
 	}
-	
+
     public void ajoutOperateur(Operateur op) {
         operateurs.add(op);
     }
@@ -28,7 +28,7 @@ public class Expression {
     public Operateur retraitOperateur() throws EmptyStackException {
         return operateurs.pop();
     }
-	
+
     public void ajoutType(TypeList t) {
         types.add(t);
     }
@@ -45,8 +45,8 @@ public class Expression {
 			return TypeList.ERREUR;
 		}
 	}
-	
-    public void traiterOperation() {
+
+    public void traiterOperation(Yvm yvm) {
         try {
 
             Operateur op = retraitOperateur();
@@ -63,16 +63,35 @@ public class Expression {
                 this.ajoutType(op.typeValide(a, b));
             }
 
+            if(yvm != null) {
+                switch(op.getOp()) {
+                    case SUP: yvm.isup(); break;
+                    case INF: yvm.iinf(); break;
+                    case SUPEG: yvm.isupegal(); break;
+                    case INFEG: yvm.iinfegal(); break;
+                    case EG: yvm.iegal(); break;
+                    case DIFF: yvm.idiff(); break;
+                    case PLUS: yvm.iadd(); break;
+                    case MOINS: yvm.isub(); break;
+                    case OU: yvm.ior(); break;
+                    case FOIS: yvm.imul(); break;
+                    case DIV: yvm.idiv(); break;
+                    case ET: yvm.iand(); break;
+                    case NEG: yvm.ineg(); break;
+                    case NON: yvm.inot(); break;
+                }
+            }
+
         } catch (EmptyStackException e) {
             e.printStackTrace();
         }
     }
-	
+
 	public void ajoutLog(String s) {errorLog += "Ligne " + Yaka.nbLig + " : " + s + "\n";}
-	
+
 	public void testAffectation(TypeList t1, TypeList t2) {
 		if((t2 == TypeList.ERREUR ) || (t1 != t2))
 			ajoutLog("Affectation impossible, erreur de type" + t1 + " =" + t2);
 	}
-	
+
 }

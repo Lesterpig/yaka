@@ -6,7 +6,7 @@ public abstract class Ident {
   public Ident(TypeList t) {
     type = t;
   }
-  
+
   public TypeList getType() {
     return type;
   }

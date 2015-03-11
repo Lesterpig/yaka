@@ -255,7 +255,7 @@ void expression() : {}
 {
   simpleExpr()
   (opRel()
-  simpleExpr() {expression.traiterOperation();}
+  simpleExpr() {expression.traiterOperation(yvm);}
   )?
 }
 
@@ -263,7 +263,7 @@ void simpleExpr() : {}
 {
    terme()
    (opAdd()
-   terme() {expression.traiterOperation();}
+   terme() {expression.traiterOperation(yvm);}
    )*
 }
 
@@ -271,13 +271,13 @@ void terme() : {}
 {
   facteur()
   (opMul()
-  facteur() {expression.traiterOperation();}
+  facteur() {expression.traiterOperation(yvm);}
   )*
 }
 
 void facteur() : {}
 {   primaire()
-  | opNeg() primaire() {expression.traiterOperation();}
+  | opNeg() primaire() {expression.traiterOperation(yvm);}
 }
 
 void primaire (): {}
@@ -288,8 +288,12 @@ void primaire (): {}
 }
 
 void valeur () : {}
-{ <entier> {expression.ajoutType(TypeList.ENTIER);}
- | <ident> {expression.ajoutType(tabIdent.searchIdent(YakaTokenManager.identLu).getType());}
+{ <entier> {
+    expression.ajoutType(TypeList.ENTIER); yvm.iconst(YakaTokenManager.entierLu);
+  }
+ | <ident> {
+    tabIdent.computeIdent(YakaTokenManager.identLu);
+  }
  | <VRAI> {expression.ajoutType(TypeList.BOOLEEN);}
  | <FAUX> {expression.ajoutType(TypeList.BOOLEEN);}
 }
