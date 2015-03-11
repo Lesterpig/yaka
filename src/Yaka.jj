@@ -143,7 +143,7 @@ void analyse() : {}
 {
    <PROGRAMME> <ident>
    bloc()
-   <FPROGRAMME>
+   <FPROGRAMME> { yvm.queue(); }
 }
 
 void bloc() : {}{
