@@ -182,5 +182,31 @@ public class YvmAsm extends Yvm {
         addInstructionTab("push " + arg);
     }
 
+    // Entrees/Sorties
+    
+    //// Sortie
+
+    @Override
+    public void ecrireEnt(int arg) {
+    }
+
+    @Override
+    public void ecrireChaine(String arg) {
+    }
+
+    @Override
+    public void ecrireBool(int arg) {
+    }
+
+    @Override
+    public void aLaLigne() {
+    }
+
+    //// Entree
+    
+    @Override
+    public void lireEnt(int arg) {
+    }
+
 
 }
