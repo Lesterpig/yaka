@@ -115,4 +115,28 @@ public class Yvm {
         addInstruction("iconst " + arg);
     }
 
+    // Entree/Sortie
+    
+    //// Sortie
+    public void ecrireChaine(String arg) {
+        addInstruction("ecrireChaine " + arg);
+    }
+
+    public void ecrireEnt(int arg) {
+        addInstruction("ecrireEnt " + arg);
+    }
+    
+    public void ecrireBool(int arg) {
+        addInstruction("ecrireBool " + arg);
+    }
+
+    public void aLaLigne() {
+        addInstruction("aLaLigne");
+    }
+
+    //// Entree
+    public void lireEnt(int arg) {
+        addInstruction("lireEnt " + arg);
+    }
+
 }
