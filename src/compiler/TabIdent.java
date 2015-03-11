@@ -25,6 +25,15 @@ public class TabIdent {
     table.put(key, id);
   }
 
+  public int getNbVars() {
+    int i = 0;
+    for (HashMap.Entry<String, Ident> entry : table.entrySet()) {
+      if(entry.getValue() instanceof IdVar)
+        i++;
+    }
+    return i;
+  }
+
   public String toString() {
     String res = "\nTabIdent:\n";
     for (HashMap.Entry<String, Ident> entry : table.entrySet()) {

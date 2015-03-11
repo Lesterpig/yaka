@@ -38,8 +38,13 @@ public class Yaka {
       tabIdent = new TabIdent();
       declaration = new Declaration();
       expression = new Expression();
+      yvm = new Yvm();
 
       analyseur.analyse();
+
+      System.out.println("OK");
+
+      System.out.println(yvm.getOut());
 
     } catch (ParseException e) {
       String msg = e.getMessage();
@@ -139,9 +144,9 @@ void analyse() : {}
 }
 
 void bloc() : {}{
- (declConst())*
- (declVar())*
-   suiteInstr()
+  (declConst())*
+  (declVar())* { yvm.entete(); yvm.ouvrePrinc(tabIdent.getNbVars()*2); }
+  suiteExpr()
 }
 
 void declConst() : {}
@@ -186,7 +191,7 @@ void valConst() : {}{
 void declVar() : {}
 {
   <VAR> type()
-  <ident> 
+  <ident>
   {
   declaration.setIdent(YakaTokenManager.identLu);
   declaration.ajoutVar();
@@ -207,12 +212,15 @@ void type() :{}
  | <BOOLEEN> {declaration.setType(TypeList.BOOLEEN);}
 }
 
+void suiteExpr() : {}
+{ (expression() (";" {expression.reinitialiser();} (expression())? )*)? }
+
 void suiteInstr() : {}
 { (instruction() (";" {expression.reinitialiser();} (instruction())? )*)? }
 
 void instruction() : {}
 {
-	affectation() 
+	affectation()
  |	lecture()
  |	ecriture()
 }
