@@ -79,6 +79,10 @@ public class Declaration {
 		return Yaka.tabIdent;
 	}
 
+	public String getErrorLog() {
+		return errorLog;
+	}
+	
 	public void updateVarOffset() {
 		varOffset += -2;
 	}
@@ -125,9 +129,13 @@ public class Declaration {
 		if(!Yaka.tabIdent.existIdent(s))
 			ajoutLog("Affectation impossible, l'identifiant " + s + " n'existe pas.");
   }
-  public String getErrorLog() {
-    return errorLog;
+
+  public void testLecture(String s) {
+		if(!Yaka.tabIdent.existIdent(s))
+			ajoutLog("Lecture impossible, l'identifiant " + s + " est invalide");
   }
-
-
+  
+  public void typeInvalide(TypeList t) {
+	ajoutLog("Lecture impossible, le type est invalide (attendu ENTIER, lu" + t + ")");
+  }
 }

@@ -95,5 +95,10 @@ public class Expression {
 		if((t2 == TypeList.ERREUR ) || (t1 != t2))
 			ajoutLog("Affectation impossible, erreur de type" + t1 + " =" + t2);
 	}
+	
+	public void testEcriture(TypeList t) {
+		if(t == TypeList.ERREUR)
+			ajoutLog("Ecriture impossible, erreur de type" + t);
+	}
 
 }
