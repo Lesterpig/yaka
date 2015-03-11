@@ -125,4 +125,9 @@ public class Declaration {
 		if(!Yaka.tabIdent.existIdent(s))
 			ajoutLog("Affectation impossible, l'identifiant " + s + " n'existe pas.");
   }
+  public String getErrorLog() {
+    return errorLog;
+  }
+
+
 }
