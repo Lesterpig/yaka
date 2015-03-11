@@ -115,28 +115,28 @@ public class Yvm {
         addInstruction("iconst " + arg);
     }
 
-	public void ecrireType(TypeList t) {
-		switch(t) {
-		case ENTIER:
-			addInstruction("ecrireEnt");
-			break;
-		case BOOLEEN:
-			addInstruction("ecrireBool");
-			break;
-		default:
-			break;
-		}
-	}
-	
-	public void ecrireChaine(String s) {
-		addInstruction("ecrireChaine \"" + s + "\"");
-	}
-	
-	public void aLaLigne() {
-		addInstruction("aLaLigne");
-	}
-	
-	public void lireEnt(int o){
-		addInstruction("lireEnt "+o);
-	}
+    public void ecrireType(TypeList t) {
+        switch(t) {
+        case ENTIER:
+            addInstruction("ecrireEnt");
+            break;
+        case BOOLEEN:
+            addInstruction("ecrireBool");
+            break;
+        default:
+            break;
+        }
+    }
+
+    public void ecrireChaine(String s) {
+        addInstruction("ecrireChaine " + s);
+    }
+
+    public void aLaLigne() {
+        addInstruction("aLaLigne");
+    }
+
+    public void lireEnt(int o){
+        addInstruction("lireEnt "+o);
+    }
 }

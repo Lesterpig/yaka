@@ -15,10 +15,10 @@ public class Expression {
         operateurs = new Stack<Operateur>();
     }
 
-	public void reinitialiser() {
-		types.clear();
-		operateurs.clear();
-	}
+    public void reinitialiser() {
+        types.clear();
+        operateurs.clear();
+    }
 
     public void ajoutOperateur(Operateur op) {
         operateurs.add(op);
@@ -36,14 +36,14 @@ public class Expression {
         return types.pop();
     }
 
-	public TypeList regardeType() {
-		try {
-			return types.peek();
-		} catch (EmptyStackException e) {
-			ajoutLog("La pile des types est vide. Impossible de consulter le sommet de pile.");
-			return TypeList.ERREUR;
-		}
-	}
+    public TypeList regardeType() {
+        try {
+            return types.peek();
+        } catch (EmptyStackException e) {
+            ajoutLog("La pile des types est vide. Impossible de consulter le sommet de pile.");
+            return TypeList.ERREUR;
+        }
+    }
 
     public void traiterOperation(Yvm yvm) {
         try {
@@ -86,16 +86,16 @@ public class Expression {
         }
     }
 
-	public void ajoutLog(String s) {Yaka.errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
+    public void ajoutLog(String s) {Yaka.errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
 
-	public void testAffectation(TypeList t1, TypeList t2) {
-		if((t2 == TypeList.ERREUR ) || (t1 != t2))
-			ajoutLog("Affectation impossible, erreur de type" + t1 + " =" + t2);
-	}
-	
-	public void testEcriture(TypeList t) {
-		if(t == TypeList.ERREUR)
-			ajoutLog("Ecriture impossible, erreur de type" + t);
-	}
+    public void testAffectation(TypeList t1, TypeList t2) {
+        if((t2 == TypeList.ERREUR ) || (t1 != t2))
+            ajoutLog("Affectation impossible, erreur de type " + t1 + " = " + t2);
+    }
+
+    public void testEcriture(TypeList t) {
+        if(t == TypeList.ERREUR)
+            ajoutLog("Ecriture impossible, erreur de type " + t);
+    }
 
 }

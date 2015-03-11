@@ -152,7 +152,7 @@ void analyse() : {}
 void bloc() : {}{
   (declConst())*
   (declVar())* { yvm.entete(); yvm.ouvrePrinc(tabIdent.getNbVars()*2); }
-  suiteExpr()
+  suiteInstr()
 }
 
 void declConst() : {}
@@ -218,9 +218,6 @@ void type() :{}
  | <BOOLEEN> {declaration.setType(TypeList.BOOLEEN);}
 }
 
-void suiteExpr() : {}
-{ (expression() (";" {expression.reinitialiser();} (expression())? )*)? }
-
 void suiteInstr() : {}
 { (instruction() (";" {expression.reinitialiser();} (instruction())? )*)? }
 
@@ -233,13 +230,18 @@ void instruction() : {}
 
 void affectation() : {}
 {
-	<ident> {YakaTokenManager.identAffect = YakaTokenManager.identLu;}
+	<ident> {
+    YakaTokenManager.identAffect = YakaTokenManager.identLu;
+  }
 	"=" expression()
 	{
-	if(tabIdent.existIdent(YakaTokenManager.identAffect))
-		expression.testAffectation(tabIdent.searchIdent(YakaTokenManager.identAffect).getType(),expression.regardeType());
-	else
-		declaration.testAffectation(YakaTokenManager.identAffect);
+    Ident id = tabIdent.searchIdent(YakaTokenManager.identAffect);
+  	if(id != null && id instanceof IdVar) {
+  		expression.testAffectation(id.getType(),expression.regardeType());
+      yvm.istore(((IdVar) id).getOffset());
+    }
+  	else
+  		declaration.testAffectation(YakaTokenManager.identAffect);
 	}
 }
 
@@ -261,8 +263,8 @@ void lecture() : {}
 
 void ecriture() : {}
 {
-	<ECRIRE> ( "(" expression() { expression.testEcriture(expression.regardeType()); yvm.ecrireType(expression.regardeType()); }| 
-				<chaine> { yvm.ecrireChaine(YakaTokenManager.chaineLue); } ")" )
+	<ECRIRE> "(" ( expression() { expression.testEcriture(expression.regardeType()); yvm.ecrireType(expression.regardeType()); }| 
+				<chaine> { yvm.ecrireChaine(YakaTokenManager.chaineLue); } ) ")"
  |	<ALALIGNE> { yvm.aLaLigne(); }
 }
 

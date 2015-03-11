@@ -19,11 +19,11 @@ public abstract class Ident {
     switch(type)
 	{
 	case BOOLEEN:
-		return " BOOL";
+		return "BOOL";
 	case ENTIER:
-		return " ENT";
+		return "ENT";
 	default:
-		return " ERR";
+		return "ERR";
 	}
   }
 }
