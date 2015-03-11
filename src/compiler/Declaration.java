@@ -62,7 +62,6 @@ public class Declaration {
       } else {
         ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...");
       }
-      
     } else {
       ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...");
     }
@@ -120,8 +119,8 @@ public class Declaration {
     }
   }
 
-  public void ajoutLog(String s) {errorLog += "Ligne " + Yaka.nbLig + " : " + s + "\n";}
-  
+  public void ajoutLog(String s) {errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
+
   public void testAffectation(String s) {
 		if(!Yaka.tabIdent.existIdent(s))
 			ajoutLog("Affectation impossible, l'identifiant " + s + " n'existe pas.");

@@ -13,8 +13,6 @@ public class Yaka {
   public static TabIdent tabIdent;
   public static Expression expression;
   public static Yvm yvm;
-  
-  public static int nbLig;
 
   public static void main(String args[]) {
     Yaka analyseur;
@@ -41,7 +39,6 @@ public class Yaka {
       declaration = new Declaration();
       expression = new Expression();
       yvm = new Yvm();
-	  nbLig = 1;
 
       analyseur.analyse();
 
@@ -62,8 +59,11 @@ PARSER_END(Yaka)
 /*************  TOKENS *************/
 
 TOKEN_MGR_DECLS :
-{public static String identLu,chaineLue,identAffect;
- public static int entierLu;}
+{
+  public static String identLu,chaineLue,identAffect;
+  public static int entierLu;
+  public static int nbLig = 1;
+}
 
 /* Skip whitespace and comments */
 SKIP :
