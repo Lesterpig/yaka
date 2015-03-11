@@ -70,7 +70,7 @@ public class DeclarationTest {
     //Test ajout d'une variable existant déjà
     d.setIdent("test5");
     d.ajoutVar();
-    assertNotEquals(d.getErrorLog(),"");
+    assert(!d.getErrorLog().equals(""));
 
   }
 
@@ -94,6 +94,6 @@ public class DeclarationTest {
     d.setIdent("test6");
     d.setEntier(6);
     d.ajoutConst();
-    assertNotEquals(d.getErrorLog(),"");
+    assert(!d.getErrorLog().equals(""));
   }
 }
