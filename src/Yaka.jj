@@ -249,7 +249,7 @@ void lecture() : {}
 	"(" <ident>
 	{
 		Ident id = tabIdent.searchIdent(YakaTokenManager.identLu);
-		if( id == null || !(id instanceOf IdVar))
+		if( id == null || !(id instanceof IdVar))
 			declaration.testLecture(YakaTokenManager.identLu);
 		else if (id.getType() != TypeList.ENTIER)
 			declaration.typeInvalide(id.getType());

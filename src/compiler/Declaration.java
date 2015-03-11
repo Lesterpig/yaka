@@ -77,10 +77,6 @@ public class Declaration {
 		return Yaka.tabIdent;
 	}
 
-	public String getErrorLog() {
-		return errorLog;
-	}
-	
 	public void updateVarOffset() {
 		varOffset += -2;
 	}

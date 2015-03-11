@@ -122,7 +122,7 @@ public class Yvm {
 			break;
 		case BOOLEEN:
 			addInstruction("ecrireBool");
-			break:
+			break;
 		default:
 			break;
 		}
