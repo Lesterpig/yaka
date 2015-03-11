@@ -5,17 +5,15 @@ public class Declaration {
 
 	private TypeList type;
 	private String ident;
-  private int entier;
-  private boolean booleen;
+    private int entier;
+    private boolean booleen;
 
 	private int varOffset;
-	private String errorLog;
 
 	public Declaration() {
 		type = TypeList.ERREUR;
 		ident = "";
 		varOffset = -2;
-		errorLog = "";
 	}
 
 	public TypeList getType () {
@@ -34,38 +32,38 @@ public class Declaration {
 		ident = i;
 	}
 
-  public int getEntier() {
-    return entier;
-  }
+    public int getEntier() {
+        return entier;
+    }
 
-  public void setEntier(int e) {
-    type = TypeList.ENTIER;
-    entier = e;
-  }
+    public void setEntier(int e) {
+        type = TypeList.ENTIER;
+        entier = e;
+    }
 
-  public void setBooleen(boolean b) {
-    type = TypeList.BOOLEEN;
-    booleen = b;
-  }
+    public void setBooleen(boolean b) {
+      type = TypeList.BOOLEEN;
+      booleen = b;
+    }
 
-  public void setConstanteExistante(String s) {
-    if(Yaka.tabIdent.existIdent(s)) {
-      Ident origConst = Yaka.tabIdent.searchIdent(s);
+    public void setConstanteExistante(String s) {
+      if(Yaka.tabIdent.existIdent(s)) {
+        Ident origConst = Yaka.tabIdent.searchIdent(s);
 
-      if (origConst instanceof IdConst) {
-        type = origConst.getType();
-        if (type == TypeList.BOOLEEN) {
-          booleen = ((IdConst)origConst).getValueBool();
+        if (origConst instanceof IdConst) {
+          type = origConst.getType();
+          if (type == TypeList.BOOLEEN) {
+            booleen = ((IdConst)origConst).getValueBool();
+          } else {
+            entier = ((IdConst)origConst).getValue();
+          }
         } else {
-          entier = ((IdConst)origConst).getValue();
+          ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...");
         }
       } else {
-        ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...");
+        ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...");
       }
-    } else {
-      ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...");
     }
-  }
 
 	public int getVarOffset() {
 		return varOffset;
@@ -110,20 +108,20 @@ public class Declaration {
 	}
 
   public void ajoutConst() {
-    if(!identValide()) 
+    if(!identValide())
 			ajoutLog("L'ident "+ident+" a deja ete declare.\n");
-		else {
-      IdConst cons;
-      if (type == TypeList.BOOLEEN)
-        cons = new IdConst(booleen);
-      else
-        cons = new IdConst(entier);
+	else {
+        IdConst cons;
+        if (type == TypeList.BOOLEEN)
+          cons = new IdConst(booleen);
+        else
+          cons = new IdConst(entier);
 
-      Yaka.tabIdent.addIdent(ident, cons);
+            Yaka.tabIdent.addIdent(ident, cons);
     }
   }
 
-  public void ajoutLog(String s) {errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
+  public void ajoutLog(String s) { Yaka.errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
 
   public void testAffectation(String s) {
 		if(!Yaka.tabIdent.existIdent(s))

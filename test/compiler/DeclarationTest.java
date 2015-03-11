@@ -14,6 +14,7 @@ public class DeclarationTest {
   @Before
   public void init() {
     d = new Declaration();
+    Yaka.errorLog = "";
     Yaka.tabIdent = new TabIdent();
   }
 
@@ -22,7 +23,7 @@ public class DeclarationTest {
     d.setEntier(5);
     assertEquals(d.getType(), TypeList.ENTIER);
   }
-  
+
   @Test
   public void setBooleenTest() {
     d.setBooleen(true);
@@ -64,13 +65,13 @@ public class DeclarationTest {
 
     d.setIdent("test5");
     d.ajoutVar();
-    assertEquals(d.getErrorLog(),"");
+    assertEquals(Yaka.errorLog,"");
     assertTrue(Yaka.tabIdent.existIdent("test5"));
 
     //Test ajout d'une variable existant déjà
     d.setIdent("test5");
     d.ajoutVar();
-    assert(!d.getErrorLog().equals(""));
+    assert(!Yaka.errorLog.equals(""));
 
   }
 
@@ -80,20 +81,20 @@ public class DeclarationTest {
     d.setIdent("test6");
     d.setEntier(5);
     d.ajoutConst();
-    assertEquals(d.getErrorLog(),"");
+    assertEquals(Yaka.errorLog,"");
     assertTrue(Yaka.tabIdent.existIdent("test6"));
 
     //Test ajout d'une constante à partir d'une autre constante
     d.setIdent("test7");
     d.setConstanteExistante("test6");
     d.ajoutConst();
-    assertEquals(d.getErrorLog(),"");
+    assertEquals(Yaka.errorLog,"");
     assertTrue(Yaka.tabIdent.existIdent("test7"));
 
     //Test d'ajout d'une constante existant déjà
     d.setIdent("test6");
     d.setEntier(6);
     d.ajoutConst();
-    assert(!d.getErrorLog().equals(""));
+    assert(!Yaka.errorLog.equals(""));
   }
 }

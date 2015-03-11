@@ -3,19 +3,16 @@ package compiler;
 import java.util.Stack;
 import java.util.EmptyStackException;
 
-import generated.YakaTokenManager;
+import generated.*;
 
 public class Expression {
 
     private Stack<TypeList> types;
     private Stack<Operateur> operateurs;
 
-    private String errorLog;
-
     public Expression() {
         types = new Stack<TypeList>();
         operateurs = new Stack<Operateur>();
-		errorLog = "";
     }
 
 	public void reinitialiser() {
@@ -89,7 +86,7 @@ public class Expression {
         }
     }
 
-	public void ajoutLog(String s) {errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
+	public void ajoutLog(String s) {Yaka.errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
 
 	public void testAffectation(TypeList t1, TypeList t2) {
 		if((t2 == TypeList.ERREUR ) || (t1 != t2))
