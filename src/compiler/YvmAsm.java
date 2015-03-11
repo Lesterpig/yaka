@@ -2,6 +2,8 @@ package compiler;
 
 public class YvmAsm extends Yvm {
 
+    private int messCounter = 0;
+
     public YvmAsm() {
         super();
         this.commentMode = true;
@@ -187,26 +189,44 @@ public class YvmAsm extends Yvm {
     //// Sortie
 
     @Override
-    public void ecrireEnt(int arg) {
+    public void ecrireType(TypeList t) {
+        super.ecrireType(t);
+        switch(t) {
+            case ENTIER:
+                addInstruction("call ecrent");
+                break;
+            case BOOLEEN:
+                addInstruction("call ecrbool");
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
-    public void ecrireChaine(String arg) {
-    }
-
-    @Override
-    public void ecrireBool(int arg) {
+    public void ecrireChaine(String s) {
+        super.ecrireChaine(s);
+        addInstruction(".DATA");
+        addInstruction("mess" + messCounter++ + " DB \"" + s + "$\"");
+        addInstruction(".CODE");
+        addInstruction("lea dx,mess"+messCounter);
+        addInstruction("push dx");
+        addInstruction("call ecrch");
     }
 
     @Override
     public void aLaLigne() {
+        super.aLaLigne();
+        addInstruction("call ligsuiv");
     }
 
     //// Entree
     
     @Override
     public void lireEnt(int arg) {
+        super.lireEnt(arg);
+        addInstruction("lea dx,[bp"+arg+"]");
+        addInstruction("push dx");
+        addInstruction("call ecrch");
     }
-
-
 }
