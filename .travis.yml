@@ -3,8 +3,9 @@ install:
   - "sudo apt-get install javacc dosemu"
 script:
   - "make javacc"
-  - "make download-tasm"
   - "make test"
+  - "echo '$_layout = \"uk\"' >> /etc/dosemu/dosemu.conf"
+  - "make download-tasm"
   - "make test-asm"
 jdk:
   - oraclejdk8

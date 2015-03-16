@@ -49,8 +49,8 @@ package: defaut
 	@mv class/Yaka.jar Yaka.jar
 
 download-tasm:
-	@wget http://dufour.tk/~quentin/tasm.zip
-	@unzip tasm.zip
+	@wget https://www.dropbox.com/s/lv5j7wxk402934e/tasm.zip?raw=1 -O tasm.zip
+	@unzip -o tasm.zip > /dev/null
 	@sudo sysctl -w vm.mmap_min_addr=0
 	@dosemu -dumb "./tasm/BIN/TASM.EXE"
 
@@ -64,6 +64,7 @@ compile-asm:
 	@test -e out.exe
 
 test-asm: package
+	@sudo sysctl -w vm.mmap_min_addr=0
 	@make generate-asm FILE=example/exp.yaka
 	@make compile-asm
 
