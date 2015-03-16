@@ -208,9 +208,9 @@ public class YvmAsm extends Yvm {
         super.ecrireChaine(s);
         addInstruction(".DATA");
         s = s.substring(1, s.length()-1);
-        addInstructionTab("mess" + messCounter++ + " DB \"" + s + "$\"");
+        addInstructionTab("mess" + messCounter + " DB \"" + s + "$\"");
         addInstruction(".CODE");
-        addInstructionTab("lea dx,mess"+messCounter);
+        addInstructionTab("lea dx,mess"+messCounter++);
         addInstructionTab("push dx");
         addInstructionTab("call ecrch");
     }
