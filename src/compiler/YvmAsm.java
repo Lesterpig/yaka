@@ -231,6 +231,6 @@ public class YvmAsm extends Yvm {
         super.lireEnt(arg);
         addInstructionTab("lea dx,[bp"+arg+"]");
         addInstructionTab("push dx");
-        addInstructionTab("call ecrch");
+        addInstructionTab("call lirent");
     }
 }
