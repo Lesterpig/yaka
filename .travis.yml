@@ -4,7 +4,7 @@ install:
 script:
   - "make javacc"
   - "make test"
-  - "echo '$_layout = \"uk\"' >> /etc/dosemu/dosemu.conf"
+  - "sudo echo '$_layout = \"uk\"' >> /etc/dosemu/dosemu.conf"
   - "make download-tasm"
   - "make test-asm"
 jdk:
