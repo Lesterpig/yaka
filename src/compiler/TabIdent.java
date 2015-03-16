@@ -20,6 +20,12 @@ public class TabIdent {
 
   public void computeIdent(String ident) {
     Ident id = searchIdent(ident);
+
+    if(id == null) {
+      Yaka.ajoutLog("La variable " + ident + " n'existe pas.");
+      return;
+    }
+
     Yaka.expression.ajoutType(id.getType());
 
     if(id instanceof IdVar) {

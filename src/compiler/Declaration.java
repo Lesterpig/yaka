@@ -58,10 +58,10 @@ public class Declaration {
             entier = ((IdConst)origConst).getValue();
           }
         } else {
-          ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...");
+          Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...");
         }
       } else {
-        ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...");
+        Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...");
       }
     }
 
@@ -95,7 +95,7 @@ public class Declaration {
 	*/
 	public void ajoutVar(){
 		if(!identValide())
-			ajoutLog("L'ident "+ident+" a deja ete declare.\n");
+			Yaka.ajoutLog("L'ident "+ident+" a deja ete declare.\n");
 		else {
 			IdVar var = new IdVar(type, varOffset);
 			this.updateVarOffset();
@@ -105,7 +105,7 @@ public class Declaration {
 
   public void ajoutConst() {
     if(!identValide())
-			ajoutLog("L'ident "+ident+" a deja ete declare.\n");
+		Yaka.ajoutLog("L'ident "+ident+" a deja ete declare.");
 	else {
         IdConst cons;
         if (type == TypeList.BOOLEEN)
@@ -117,19 +117,17 @@ public class Declaration {
     }
   }
 
-  public void ajoutLog(String s) { Yaka.errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
-
   public void testAffectation(String s) {
 		if(!Yaka.tabIdent.existIdent(s))
-			ajoutLog("Affectation impossible, l'identifiant " + s + " n'existe pas.");
+			Yaka.ajoutLog("Affectation impossible, l'identifiant " + s + " n'existe pas.");
   }
 
   public void testLecture(String s) {
 		if(!Yaka.tabIdent.existIdent(s))
-			ajoutLog("Lecture impossible, l'identifiant " + s + " est invalide");
+			Yaka.ajoutLog("Lecture impossible, l'identifiant " + s + " est invalide");
   }
-  
+
   public void typeInvalide(TypeList t) {
-	ajoutLog("Lecture impossible, le type est invalide (attendu ENTIER, lu" + t + ")");
+    Yaka.ajoutLog("Lecture impossible, le type est invalide (attendu ENTIER, lu" + t + ")");
   }
 }

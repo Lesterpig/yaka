@@ -40,7 +40,7 @@ public class Expression {
         try {
             return types.peek();
         } catch (EmptyStackException e) {
-            ajoutLog("La pile des types est vide. Impossible de consulter le sommet de pile.");
+            Yaka.ajoutLog("La pile des types est vide. Impossible de consulter le sommet de pile.");
             return TypeList.ERREUR;
         }
     }
@@ -86,16 +86,14 @@ public class Expression {
         }
     }
 
-    public void ajoutLog(String s) {Yaka.errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";}
-
     public void testAffectation(TypeList t1, TypeList t2) {
         if((t2 == TypeList.ERREUR ) || (t1 != t2))
-            ajoutLog("Affectation impossible, erreur de type " + t1 + " = " + t2);
+            Yaka.ajoutLog("Affectation impossible, erreur de type " + t1 + " = " + t2);
     }
 
     public void testEcriture(TypeList t) {
         if(t == TypeList.ERREUR)
-            ajoutLog("Ecriture impossible, erreur de type " + t);
+            Yaka.ajoutLog("Ecriture impossible, erreur de type " + t);
     }
 
 }

@@ -88,7 +88,8 @@ public class YvmAsm extends Yvm {
     public void ineg() {
         super.ineg();
         addInstructionTab("pop ax");
-        addInstructionTab("imul -1");
+        addInstructionTab("mov bx,-1");
+        addInstructionTab("imul bx");
         addInstructionTab("push ax");
     }
 

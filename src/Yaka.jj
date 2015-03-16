@@ -15,6 +15,10 @@ public class Yaka {
   public static Yvm yvm;
   public static String errorLog = "";
 
+  public static void ajoutLog(String s) {
+    errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";
+  }
+
   public static void main(String args[]) {
     Yaka analyseur;
     java.io.InputStream input;
