@@ -4,6 +4,7 @@ install:
 script:
   - "make javacc"
   - "make test"
+  - "make package"
 jdk:
   - oraclejdk8
   - oraclejdk7

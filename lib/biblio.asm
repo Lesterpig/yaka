@@ -3,7 +3,7 @@
 ;   Sujet   : Codage des procedures sans parametres
 ;   Module  : entrees sorties
 ;   Auteurs :  Marie-Jo Pedrono
-;   Groupe :  
+;   Groupe :
 ;*******************************************************
 ;
 ;   Description : Bibliotheque des entrees-sorties DOS
@@ -16,7 +16,7 @@
 ;   Procedures exportees :	lirent, ecrent,ecrbool
 ;					ecrch,ecrbool
 ;   Variables exportees :	aucune
-; 
+;
 ;*******************************************************
 
 	PUBLIC lirent,ecrent,ecrcar,ecrbool,ecrch,ligsuiv
@@ -45,9 +45,9 @@ lirent proc near
 	enter	0,0
 	mov	cx,0
 	mov	bx,0	; 		nombre := 0;
-	mov	signe,1	; 	signe :=positif;	
+	mov	signe,1	; 	signe :=positif;
 				;	jqa chiffre trouve faire
-faire: mov	ah,01h	; 
+faire: mov	ah,01h	;
 	int	21h	; 		;lire(car)
 	cmp	al,'-'	;	si carlu = '-' alors signe := negatif
 	jne	cherchif
@@ -62,13 +62,13 @@ cherchif:
 	jg	fait	;	 	sortir par chiftrouv
 	jle   chiftrouv
 
-fait: jmp faire	
+fait: jmp faire
 
 chiftrouv:
-	sub	al,'0'		; nombre := car -'0'		
-	mov	cl,al	
+	sub	al,'0'		; nombre := car -'0'
+	mov	cl,al
 	mov	bx,0
-	mov	bl,al	
+	mov	bl,al
 
 
 bouc:	mov	ah,01h	; tant que chiffre trouve faire
@@ -76,7 +76,7 @@ bouc:	mov	ah,01h	; tant que chiffre trouve faire
 	int	21h	; 	lire(car)
 	cmp	al,'0'	; 	si car < '0' ou car > '9'
 	jl	finb	;
-	cmp	al,'9';	
+	cmp	al,'9';
 	jg	finb	;		sortir par fin
 	sub	al,'0'	;
 	mov	cl,al	;
@@ -85,14 +85,14 @@ bouc:	mov	ah,01h	; tant que chiffre trouve faire
 	mov	bx,ax	;
 	add	bx,cx	;
 	jmp	bouc	;	;fait
-	
+
 finb: cmp	signe,-1	;si signe = negatif alors
 	jne	positif
 	neg	bx		;	N:=-N
 positif:
 	mov  di,[bp+N]
 	mov  [di],bx
-	leave	
+	leave
 	ret	2
 	endp			; fin lirent
 
@@ -104,7 +104,7 @@ positif:
 ;   Parametres de sortie : aucun
 ;   Mode de transfert des parametres : pile
 ;   Variables globales modifiees : aucune
-;   Variables locales : 
+;   Variables locales :
 ;-------------------------------------------------------
 	.DATA
 chaine	db	10 DUP (?)	; Reservation de 10 octets non initialises
@@ -118,7 +118,7 @@ ecrent proc near
 	mov	Pt,OFFSET finch
 	mov 	byte ptr[Pt],'$'	; $ est la marque de fin de chaine
 	mov	signe,1
-	mov	ax,[bp+X]		;cas 
+	mov	ax,[bp+X]		;cas
 
 	cmp	ax,0			;	X=0 -> met '0' dans le tampon
 	jne	casuiv
@@ -165,13 +165,13 @@ affiche :
 ;   Parametres de sortie : aucun
 ;   Mode de transfert des parametres : pile
 ;   Variables globales modifiees : aucune
-;   Variables locales : 
+;   Variables locales :
 ;-------------------------------------------------------
 
 car	equ	4	;deplacement dans la pile
 
 ecrcar	proc	near
-	enter	0,0		
+	enter	0,0
 	mov	dl,[bp+car]
 	mov	ah,02
 	int	21h		; ecriture du caractere
@@ -187,7 +187,7 @@ ecrcar	proc	near
 ;   Parametres de sortie : aucun
 ;   Mode de transfert des parametres : pile
 ;   Variables globales modifiees : aucune
-;   Variables locales : 
+;   Variables locales :
 ;-------------------------------------------------------
 	.DATA
 vrai	db	'vrai$'	; notation vrai et faux
@@ -201,7 +201,7 @@ ecrbool proc near
 	je	casfaux	;	si bool = vrai
 	lea	dx,vrai	;        alors ecrire('vrai')
 	jmp	ecrb
-casfaux: 
+casfaux:
 	lea	dx,faux	;	sinon ecrire('faux')
 ecrb :
 	mov	ah,09h
@@ -209,7 +209,7 @@ ecrb :
 	leave
 	ret	2
 	endp
-	
+
 ;-------------------------------------------------------
 ;   Nom : ecrch
 ;   Description : affichage d'une chaine
@@ -218,7 +218,7 @@ ecrb :
 ;   Parametres de sortie : aucun
 ;   Mode de transfert des parametres : pile
 ;   Variables globales modifiees : aucune
-;   Variables locales : 
+;   Variables locales :
 ;-------------------------------------------------------
 depch	equ	4
 ecrch proc near
@@ -236,9 +236,9 @@ ecrch proc near
 ;-------------------------------------------------------
 ;   Parametres d'entree : aucun
 ;   Parametres de sortie : aucun
-;   Mode de transfert des parametres : 
+;   Mode de transfert des parametres :
 ;   Variables globales modifiees : aucune
-;   Variables locales : 
+;   Variables locales :
 ;-------------------------------------------------------
 	.DATA
 alalign	db	13,10,'$'	; chaine a afficher
@@ -262,7 +262,7 @@ ligsuiv	proc near
 cha	db	'bonjour$'
 chb	db	'au revoir$'
 	.CODE
-	
+
 debut :
 	STARTUPCODE
 	lea	bx,cha	;ecrire('bonjour')
@@ -270,8 +270,8 @@ debut :
 	call	ecrch
 
 	call	ligsuiv	; alaligne
-	
-	push	word ptr ' x' ; caractere cadre a droite 
+
+	push	word ptr ' x' ; caractere cadre a droite
 	call	ecrcar
 
 
@@ -301,4 +301,4 @@ debut :
 
 
 	EXITCODE
-	end	debut	
+	end	debut

@@ -19,6 +19,7 @@ usage help:
 	@echo "    make run     : runs the compiler"
 	@echo "         option ->  make run FILE=pathToFile"
 	@echo "    make test    : runs the test (needs JUnit4)"
+	@echo "    make package : packages the compiler in a .jar file"
 	@echo "    make clean   : removes generated files"
 	@echo
 
@@ -40,3 +41,8 @@ test: javac
 clean:
 	-@rm -rf class
 	-@rm -rf src/generated
+
+package: defaut
+	-@rm -rf Yaka.jar
+	@cd class; jar cmvf ../META-INF/MANIFEST.MF Yaka.jar generated/*.class compiler/*.class
+	@mv class/Yaka.jar Yaka.jar
