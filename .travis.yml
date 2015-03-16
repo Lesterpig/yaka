@@ -1,10 +1,11 @@
 language: java
 install:
-  - "sudo apt-get install javacc"
+  - "sudo apt-get install javacc dosemu"
 script:
   - "make javacc"
+  - "make download-tasm"
   - "make test"
-  - "make package"
+  - "make test-asm"
 jdk:
   - oraclejdk8
   - oraclejdk7

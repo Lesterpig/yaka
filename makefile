@@ -41,8 +41,29 @@ test: javac
 clean:
 	-@rm -rf class
 	-@rm -rf src/generated
+	-@rm -rf *.asm *.exe *.lst *.obj *.map
 
 package: defaut
 	-@rm -rf Yaka.jar
 	@cd class; jar cmvf ../META-INF/MANIFEST.MF Yaka.jar generated/*.class compiler/*.class
 	@mv class/Yaka.jar Yaka.jar
+
+download-tasm:
+	@wget http://dufour.tk/~quentin/tasm.zip
+	@unzip tasm.zip
+	@sudo sysctl -w vm.mmap_min_addr=0
+	@dosemu -dumb "./tasm/BIN/TASM.EXE"
+
+generate-asm:
+	@java -jar Yaka.jar $(FILE) > out.asm
+
+compile-asm: 
+	@dosemu -dumb "./asm-dosemu.bat" 2> /dev/null
+	@test -e biblio.obj
+	@test -e out.obj
+	@test -e out.exe
+
+test-asm: package
+	@make generate-asm FILE=example/exp.yaka
+	@make compile-asm
+
