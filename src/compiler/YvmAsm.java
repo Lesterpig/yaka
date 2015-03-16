@@ -20,6 +20,9 @@ public class YvmAsm extends Yvm {
     @Override
     public void entete() {
         super.entete();
+        addInstruction("extrn lirent:proc, ecrent:proc");
+        addInstruction("extrn ecrbool:proc");
+        addInstruction("extrn ecrch:proc, ligsuiv:proc");
         addInstruction(".model SMALL");
         addInstruction(".586");
         addInstruction(".CODE");
@@ -185,7 +188,7 @@ public class YvmAsm extends Yvm {
     }
 
     // Entrees/Sorties
-    
+
     //// Sortie
 
     @Override
@@ -222,7 +225,7 @@ public class YvmAsm extends Yvm {
     }
 
     //// Entree
-    
+
     @Override
     public void lireEnt(int arg) {
         super.lireEnt(arg);

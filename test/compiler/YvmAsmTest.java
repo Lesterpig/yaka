@@ -14,12 +14,6 @@ public class YvmAsmTest {
     }
 
     @Test
-    public void enteteTest() {
-        a.entete();
-        assertEquals("\n    ; entete\n.model SMALL\n.586\n.CODE\ndebut:\n    STARTUPCODE\n", a.getOut());
-    }
-
-    @Test
     public void imulTest() {
         a.imul();
         assertEquals("\n    ; imul\n    pop bx\n    pop ax\n    imul bx\n    push ax\n", a.getOut());
