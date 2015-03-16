@@ -88,7 +88,7 @@ public class Expression {
 
     public void testAffectation(TypeList t1, TypeList t2) {
         if((t2 == TypeList.ERREUR ) || (t1 != t2))
-            Yaka.ajoutLog("Affectation impossible, erreur de type " + t1 + " = " + t2);
+            Yaka.ajoutLog("Affectation impossible, erreur de type : attendu " + t1 + ", obtenu " + t2);
     }
 
     public void testEcriture(TypeList t) {
