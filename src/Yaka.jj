@@ -37,7 +37,7 @@ public class Yaka {
       tabIdent = new TabIdent();
       declaration = new Declaration();
       expression = new Expression();
-      yvm = new Yvm();
+      yvm = new YvmAsm();
 
       analyseur.analyse();
 

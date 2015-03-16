@@ -193,10 +193,10 @@ public class YvmAsm extends Yvm {
         super.ecrireType(t);
         switch(t) {
             case ENTIER:
-                addInstruction("call ecrent");
+                addInstructionTab("call ecrent");
                 break;
             case BOOLEEN:
-                addInstruction("call ecrbool");
+                addInstructionTab("call ecrbool");
                 break;
             default:
                 break;
@@ -207,17 +207,17 @@ public class YvmAsm extends Yvm {
     public void ecrireChaine(String s) {
         super.ecrireChaine(s);
         addInstruction(".DATA");
-        addInstruction("mess" + messCounter++ + " DB \"" + s + "$\"");
+        addInstructionTab("mess" + messCounter++ + " DB \"" + s + "$\"");
         addInstruction(".CODE");
-        addInstruction("lea dx,mess"+messCounter);
-        addInstruction("push dx");
-        addInstruction("call ecrch");
+        addInstructionTab("lea dx,mess"+messCounter);
+        addInstructionTab("push dx");
+        addInstructionTab("call ecrch");
     }
 
     @Override
     public void aLaLigne() {
         super.aLaLigne();
-        addInstruction("call ligsuiv");
+        addInstructionTab("call ligsuiv");
     }
 
     //// Entree
@@ -225,8 +225,8 @@ public class YvmAsm extends Yvm {
     @Override
     public void lireEnt(int arg) {
         super.lireEnt(arg);
-        addInstruction("lea dx,[bp"+arg+"]");
-        addInstruction("push dx");
-        addInstruction("call ecrch");
+        addInstructionTab("lea dx,[bp"+arg+"]");
+        addInstructionTab("push dx");
+        addInstructionTab("call ecrch");
     }
 }
