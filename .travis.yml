@@ -4,7 +4,7 @@ install:
 script:
   - "make javacc"
   - "make test"
-  - "sudo echo '$_layout = \"uk\"' >> /etc/dosemu/dosemu.conf"
+  - "./travis/configure-layout.sh"
   - "make download-tasm"
   - "make test-asm"
 jdk:
