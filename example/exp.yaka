@@ -3,7 +3,6 @@ VAR ENTIER x,y,z;
     ECRIRE("x=");
     LIRE(x);
     ECRIRE("y=");
-    ALALIGNE;
     LIRE(y);
     ALALIGNE;
     ECRIRE("x+y=");
