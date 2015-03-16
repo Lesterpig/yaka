@@ -22,31 +22,79 @@ public class Yaka {
   public static void main(String args[]) {
     Yaka analyseur;
     java.io.InputStream input;
+    java.io.FileWriter output;
 
-    if (args.length==1) {
-      try {
-        input = new java.io.FileInputStream(args[args.length-1]);
-      } catch (java.io.FileNotFoundException e) {
-        System.out.println("File not found.");
+    input  = System.in;
+    output = null;
+
+    tabIdent = new TabIdent();
+    declaration = new Declaration();
+    expression = new Expression();
+    yvm = new YvmAsm();
+
+    String inPath  = null;
+    String outPath = null;
+
+    String lastArg = "";
+    for(int i = 0; i < args.length; i++) {
+
+      if(args[i].equals("-y")) {
+        yvm = new Yvm();
+      }
+
+      else if(lastArg.equals("-o")) {
+        outPath = args[i];
+      }
+
+      else if(args[i].equals("-o")) {
+        lastArg = args[i];
+        continue;
+      }
+
+      else if(i == args.length - 1) {
+        inPath = args[i];
+      }
+
+      else {
+        System.err.println("Usage: java Yaka [-y] [-o output] [filename]");
         return;
       }
-    } else if (args.length==0) {
-      input = System.in;
-    } else {
-      System.out.println("Usage: java Yaka [filename]");
-      return;
+
+      lastArg = "";
+
     }
+
+    if(inPath != null) {
+      try {
+        input = new java.io.FileInputStream(inPath);
+      } catch (java.io.FileNotFoundException e) {
+        System.err.println(e.getMessage());
+        return;
+      }
+    }
+
+    if(outPath != null) {
+      try {
+        output = new java.io.FileWriter(outPath);
+      } catch (java.io.IOException e) {
+        System.err.println(e.getMessage());
+        return;
+      }
+    }
+
     try {
       analyseur = new Yaka(input);
-      tabIdent = new TabIdent();
-      declaration = new Declaration();
-      expression = new Expression();
-      yvm = new YvmAsm();
-
       analyseur.analyse();
 
       if(errorLog.equals("")) {
-        System.out.println(yvm.getOut());
+        if(output == null) {
+          System.out.println(yvm.getOut());
+        }
+        else {
+          output.write(yvm.getOut());
+          output.flush();
+          output.close();
+        }
       }
 
       else {
@@ -56,7 +104,9 @@ public class Yaka {
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\n"));
-      System.out.println("Syntax error: "+msg);
+      System.err.println("Erreur de syntaxe : "+ msg);
+    } catch (java.io.IOException e) {
+      System.err.println(e.getMessage());
     }
   }
 }

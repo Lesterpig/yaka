@@ -23,6 +23,7 @@ public class TabIdent {
 
     if(id == null) {
       Yaka.ajoutLog("La variable " + ident + " n'existe pas.");
+      Yaka.expression.ajoutType(TypeList.ERREUR);
       return;
     }
 

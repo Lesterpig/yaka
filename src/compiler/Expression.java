@@ -93,7 +93,7 @@ public class Expression {
 
     public void testEcriture(TypeList t) {
         if(t == TypeList.ERREUR)
-            Yaka.ajoutLog("Ecriture impossible, erreur de type " + t);
+            Yaka.ajoutLog("Ecriture impossible.");
     }
 
 }
