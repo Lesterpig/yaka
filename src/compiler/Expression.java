@@ -95,5 +95,10 @@ public class Expression {
         if(t == TypeList.ERREUR)
             Yaka.ajoutLog("Ecriture impossible.");
     }
+	
+	public void testExpressionBool() {
+		if(regardeType() != TypeList.BOOLEEN)
+			Yaka.ajoutLog("L'expression retourne un type " + regardeType() + " au lieu d'un Booleen. L'iteration n'est pas valide");
+	}
 
 }

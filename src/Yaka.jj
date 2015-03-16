@@ -280,6 +280,7 @@ void instruction() : {}
 	affectation()
  |	lecture()
  |	ecriture()
+ |  iteration()
 }
 
 void affectation() : {}
@@ -320,6 +321,13 @@ void ecriture() : {}
 	<ECRIRE> "(" ( expression() { expression.testEcriture(expression.regardeType()); yvm.ecrireType(expression.regardeType()); }| 
 				<chaine> { yvm.ecrireChaine(YakaTokenManager.chaineLue); } ) ")"
  |	<ALALIGNE> { yvm.aLaLigne(); }
+}
+
+void iteration() : {}
+{
+	<TANTQUE> expression() {expression.testExpressionBool();}
+	<FAIRE> suiteInstr()
+	<FAIT>
 }
 
 void expression() : {}
