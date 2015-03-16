@@ -325,9 +325,10 @@ void ecriture() : {}
 
 void iteration() : {}
 {
-	<TANTQUE> expression() {expression.testExpressionBool();}
+	<TANTQUE> { yvm.ouvreFaire(); }
+	expression() { expression.testExpressionBool(); }
 	<FAIRE> suiteInstr()
-	<FAIT>
+	<FAIT> { yvm.fermeFaire(); }
 }
 
 void expression() : {}
