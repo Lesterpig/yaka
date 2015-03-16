@@ -207,6 +207,7 @@ public class YvmAsm extends Yvm {
     public void ecrireChaine(String s) {
         super.ecrireChaine(s);
         addInstruction(".DATA");
+        s = s.substring(1, s.length()-1);
         addInstructionTab("mess" + messCounter++ + " DB \"" + s + "$\"");
         addInstruction(".CODE");
         addInstructionTab("lea dx,mess"+messCounter);
