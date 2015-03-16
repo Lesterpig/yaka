@@ -58,10 +58,10 @@ public class Declaration {
             entier = ((IdConst)origConst).getValue();
           }
         } else {
-          Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante...");
+          Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante.");
         }
       } else {
-        Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas...");
+        Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas.");
       }
     }
 
@@ -95,7 +95,7 @@ public class Declaration {
 	*/
 	public void ajoutVar(){
 		if(!identValide())
-			Yaka.ajoutLog("L'ident "+ident+" a deja ete declare.\n");
+			Yaka.ajoutLog("L'ident "+ident+" a deja ete declare.");
 		else {
 			IdVar var = new IdVar(type, varOffset);
 			this.updateVarOffset();
@@ -124,10 +124,10 @@ public class Declaration {
 
   public void testLecture(String s) {
 		if(!Yaka.tabIdent.existIdent(s))
-			Yaka.ajoutLog("Lecture impossible, l'identifiant " + s + " est invalide");
+			Yaka.ajoutLog("Lecture impossible, l'identifiant " + s + " est invalide.");
   }
 
   public void typeInvalide(TypeList t) {
-    Yaka.ajoutLog("Lecture impossible, le type est invalide (attendu ENTIER, lu" + t + ")");
+    Yaka.ajoutLog("Lecture impossible, le type est invalide (attendu ENTIER, lu" + t + ").");
   }
 }

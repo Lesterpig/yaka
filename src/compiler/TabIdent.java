@@ -1,6 +1,7 @@
 package compiler;
 
 import java.util.HashMap;
+import java.util.Map;
 import generated.Yaka;
 
 public class TabIdent {
@@ -56,7 +57,7 @@ public class TabIdent {
 
   public String toString() {
     String res = "\nTabIdent:\n";
-    for (HashMap.Entry<String, Ident> entry : table.entrySet()) {
+    for (Map.Entry<String, Ident> entry : table.entrySet()) {
       res += "  ";
         if (entry.getValue() instanceof IdConst)
           res += "CONST ";
