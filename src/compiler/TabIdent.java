@@ -48,7 +48,7 @@ public class TabIdent {
 
   public int getNbVars() {
     int i = 0;
-    for (HashMap.Entry<String, Ident> entry : table.entrySet()) {
+    for (Map.Entry<String, Ident> entry : table.entrySet()) {
       if(entry.getValue() instanceof IdVar)
         i++;
     }
