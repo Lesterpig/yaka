@@ -1,15 +1,19 @@
 package compiler;
 
+import java.util.Stack;
+import java.util.EmptyStackException;
+
 public class Yvm {
 
     protected String out;
     protected boolean commentMode = false;
-	private Stack<Integer> pileFaireCounters;
-	private int faireCounter = 1;
+	protected Stack<Integer> pileFaire;
+	protected int indexFaire;
 
     public Yvm() {
         this.out = "";
-		pileFaireCounters = new Stack<Integer>();
+        this.indexFaire = 0;
+		this.pileFaire = new Stack<Integer>();
     }
 
     public String getOut() {
@@ -146,32 +150,13 @@ public class Yvm {
 	
 	//Etiquettes FAIRE
 	
-	public void majFaireCounter() {
-		faireCounter++;
-	}
-	
-	public void empileFaire() {
-		pileFaireCounters.push(faireCounter);
-		majFaireCounter();
-	}
-	
-	public int regardeFaire() throws EmptyStackException {
-		return pileFaireCounters.peek();
-		//Yaka.ajoutLog("Pile des FAIRE vide. Impossible d'acceder au sommet de pile.");
-	}
-	
-	public void depileFaire() throws EmptyStackException {
-		pileFaireCounters.pop();
-		//Yaka.ajoutLog("Pile des FAIRE vide. Impossible de depiler le sommet de pile.");
-	}
-	
 	public void ouvreFaire() {
-		empileFaire();
-		addInstruction("FAIRE"+regardeFaire()+":");
+		pileFaire.push(this.indexFaire);
+		addInstruction("FAIRE"+this.indexFaire+":");
+        this.indexFaire++;
 	}
 	
 	public void fermeFaire() {
-		addInstruction("FAIT"+regardeFaire()+":");
-		depileFaire();
+		addInstruction("FAIT"+(this.pileFaire.pop())+":");
 	}
 }

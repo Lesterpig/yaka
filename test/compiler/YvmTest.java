@@ -33,4 +33,15 @@ public class YvmTest {
         assertEquals("ineg\niinf\niload 4\n", a.getOut());
     }
 
+    @Test
+    public void faireTest() {
+        a.ouvreFaire();
+        a.ouvreFaire();
+        a.fermeFaire();
+        a.ouvreFaire();
+        a.fermeFaire();
+        a.fermeFaire();
+        assertEquals("FAIRE0:\nFAIRE1:\nFAIT1:\nFAIRE2:\nFAIT2:\nFAIT0:\n", a.getOut());
+    }
+
 }
