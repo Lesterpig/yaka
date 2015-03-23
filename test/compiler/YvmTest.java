@@ -41,7 +41,7 @@ public class YvmTest {
         a.ouvreFaire();
         a.fermeFaire();
         a.fermeFaire();
-        assertEquals("FAIRE0:\nFAIRE1:\nFAIT1:\nFAIRE2:\nFAIT2:\nFAIT0:\n", a.getOut());
+        assertEquals("FAIRE0:\nFAIRE1:\ngoto FAIRE1\nFAIT1:\nFAIRE2:\ngoto FAIRE2\nFAIT2:\ngoto FAIRE0\nFAIT0:\n", a.getOut());
     }
 
 }

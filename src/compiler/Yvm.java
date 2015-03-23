@@ -7,14 +7,15 @@ public class Yvm {
 
     protected String out;
     protected boolean commentMode = false;
+
 	//ITERATION
 	protected Stack<Integer> pileFaire;
 	protected int indexFaire;
-	
+
 	//CONDITIONNELLE
 	protected Stack<Integer> pileCond;
 	protected int indexCond;
-	
+
     public Yvm() {
         this.out = "";
         //ITERATION
@@ -28,7 +29,7 @@ public class Yvm {
     public String getOut() {
         return this.out;
     }
-	
+
     private void addInstruction(String method) {
         if(this.commentMode) {
             this.out += "\n    ; ";
@@ -155,54 +156,56 @@ public class Yvm {
     public void lireEnt(int o){
         addInstruction("lireEnt "+o);
     }
-	
-	
-	//ITERATION
-	
-	public void ouvreFaire() {
-		pileFaire.push(this.indexFaire);
-		addInstruction("FAIRE"+this.indexFaire+":");
-        this.indexFaire++;
-	}
-	
-	public void iffauxFaire() {
-		int i = this.pileFaire.peek();
-		addInstruction("iffaux FAIT"+i);
-	}
-	
-	public void goToFaire() {
-		int i = this.pileFaire.peek();
-		addInstruction("goto FAIRE"+i);
-	}
-	
-	public void fermeFaire() {
-		int i = this.pileFaire.peek();
-		addInstruction("FAIT"+(i)+":");
-		this.pileFaire.pop();
-	}
-	
+
+
 	//CONDITIONNELLE
-	
+
 	public void siCond() {
 		pileCond.push(this.indexCond);
         this.indexCond++;
 	}
-	
+
 	public void sinonCond() {
 		int i = this.pileCond.peek();
 		addInstruction("iffaux SINON"+i);
 	}
-	
+
 	public void goToFsiCond() {
 		int i = this.pileCond.peek();
 		addInstruction("goto FSI"+i);
 		addInstruction("SINON"+i+":");
 	}
-	
+
 	public void fsiCond() {
 		int i = this.pileCond.peek();
 		addInstruction("FSI"+i+":");
 		this.pileFaire.pop();
 	}
-	
+
+    //Etiquettes FAIRE
+
+    public int ouvreFaire() {
+        pileFaire.push(this.indexFaire);
+        addInstruction("FAIRE"+this.indexFaire+":");
+        return this.indexFaire++;
+    }
+
+    public int iffauxFaire() {
+        int i = this.pileFaire.peek();
+        addInstruction("iffaux FAIT"+i);
+        return i;
+    }
+
+    public int fermeFaire() {
+        int i = this.pileFaire.pop();
+        addInstruction("FAIT"+(i)+":");
+        return i;
+    }
+
+    public int goToFaire() {
+        int i = this.pileFaire.peek();
+        addInstruction("goto FAIRE"+i);
+        return i;
+    }
+
 }

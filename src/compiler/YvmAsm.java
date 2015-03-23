@@ -3,7 +3,6 @@ package compiler;
 public class YvmAsm extends Yvm {
 
     private int messCounter = 0;
-    private int condCounter = 0;
 
     public YvmAsm() {
         super();
@@ -236,29 +235,61 @@ public class YvmAsm extends Yvm {
         addInstructionTab("call lirent");
     }
 
-    //@Override
+    @Override
     public void siCond() {
-      //super.siCond();
+      super.siCond();
       addInstructionTab("pop ax");
       addInstructionTab("cmp ax,0");
-      addInstructionTab("je SINON" + ++condCounter);
+      addInstructionTab("je SINON");
     }
     
-    //@Override
+    @Override
     public void goToFsiCond() {
-      //super.goToFsiCond();
-      addInstructionTab("jmp FSI" + condCounter);
+      super.goToFsiCond();
+      addInstructionTab("jmp FSI");
     }
 
-    //@Override 
+    @Override 
     public void sinonCond() {
-      //super.sinonCond("");
-      addInstruction("SINON " + condCounter);
+      super.sinonCond();
+      addInstruction("SINON");
     }
     
-    //@Override 
+    @Override 
     public void fsiCond() {
-      //super.fsiCond();
-      addInstructionTab("FSI" + condCounter);
+      super.fsiCond();
+      addInstructionTab("FSI");
+    }
+
+    //// ITERATIONS
+    
+    @Override
+    public int ouvreFaire() {
+        int i = super.ouvreFaire();
+        addInstruction("FAIRE"+i+":");
+        return i;
+    }
+
+    @Override
+    public int fermeFaire() {
+        int i = super.fermeFaire();
+        addInstruction("FAIT"+i+":");
+        return i;
+    }
+
+    @Override
+    public int goToFaire() {
+        int i = super.goToFaire();
+        addInstructionTab("jmp FAIRE"+i);
+        return i;
+    }
+
+    @Override
+    public int iffauxFaire() {
+        int i = super.iffauxFaire();
+        addInstructionTab("pop ax");
+        addInstructionTab("cmp ax,0");
+        addInstructionTab("je FAIT"+i);
+        return i;
     }
 }
