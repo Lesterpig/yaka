@@ -7,13 +7,22 @@ public class Yvm {
 
     protected String out;
     protected boolean commentMode = false;
+	//ITERATION
 	protected Stack<Integer> pileFaire;
 	protected int indexFaire;
-
+	
+	//CONDITIONNELLE
+	protected Stack<Integer> pileCond;
+	protected int indexCond;
+	
     public Yvm() {
         this.out = "";
-        this.indexFaire = 0;
+        //ITERATION
+		this.indexFaire = 0;
 		this.pileFaire = new Stack<Integer>();
+		//CONDITIONNELLE
+		this.indexCond = 0;
+		this.pileCond = new Stack<Integer>();
     }
 
     public String getOut() {
@@ -148,7 +157,7 @@ public class Yvm {
     }
 	
 	
-	//Etiquettes FAIRE
+	//ITERATION
 	
 	public void ouvreFaire() {
 		pileFaire.push(this.indexFaire);
@@ -161,10 +170,39 @@ public class Yvm {
 		addInstruction("iffaux FAIT"+i);
 	}
 	
-	public void fermeFaire() {
+	public void goToFaire() {
 		int i = this.pileFaire.peek();
 		addInstruction("goto FAIRE"+i);
+	}
+	
+	public void fermeFaire() {
+		int i = this.pileFaire.peek();
 		addInstruction("FAIT"+(i)+":");
 		this.pileFaire.pop();
 	}
+	
+	//CONDITIONNELLE
+	
+	public void siCond() {
+		pileCond.push(this.indexCond);
+        this.indexCond++;
+	}
+	
+	public void sinonCond() {
+		int i = this.pileCond.peek();
+		addInstruction("iffaux SINON"+i);
+	}
+	
+	public void goToFsiCond() {
+		int i = this.pileCond.peek();
+		addInstruction("goto FSI"+i);
+		addInstruction("SINON"+i+":");
+	}
+	
+	public void fsiCond() {
+		int i = this.pileCond.peek();
+		addInstruction("FSI"+i+":");
+		this.pileFaire.pop();
+	}
+	
 }

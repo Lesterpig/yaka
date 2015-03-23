@@ -281,6 +281,7 @@ void instruction() : {}
  |	lecture()
  |	ecriture()
  |  iteration()
+ | conditionnelle()
 }
 
 void affectation() : {}
@@ -327,8 +328,17 @@ void iteration() : {}
 {
 	<TANTQUE> { yvm.ouvreFaire(); }
 	expression() { expression.testExpressionBool(); yvm.iffauxFaire(); }
-	<FAIRE> suiteInstr()
+	<FAIRE> suiteInstr() { yvm.goToFaire(); }
 	<FAIT> { yvm.fermeFaire(); }
+}
+
+void conditionnelle() : {}
+{
+	<SI> { yvm.siCond(); }
+	expression() { expression.testExpressionBool(); yvm.sinonCond(); }
+	<ALORS> suiteInstr() { yvm.goToFsiCond(); }
+	(<SINON> suiteInstr() )?
+	<FSI> { yvm.fsiCond(); }
 }
 
 void expression() : {}
