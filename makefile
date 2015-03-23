@@ -65,6 +65,6 @@ compile-asm:
 
 test-asm: package
 	@sudo sysctl -w vm.mmap_min_addr=0
-	@make generate-asm FILE=example/exp.yaka
+	@make generate-asm FILE=$(FILE)
 	@make compile-asm
 
