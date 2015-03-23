@@ -2,8 +2,10 @@ PROGRAMME entreeSortie
 VAR ENTIER x,y,z;
     ECRIRE("x=");
     LIRE(x);
+    ALALIGNE;
     ECRIRE("y=");
     LIRE(y);
+    ALALIGNE;
     ALALIGNE;
     ECRIRE("x+y=");
     ECRIRE(x+y);
