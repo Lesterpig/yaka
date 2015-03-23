@@ -37,9 +37,12 @@ public class YvmTest {
     public void faireTest() {
         a.ouvreFaire();
         a.ouvreFaire();
+        a.goToFaire();
         a.fermeFaire();
         a.ouvreFaire();
+        a.goToFaire();
         a.fermeFaire();
+        a.goToFaire();
         a.fermeFaire();
         assertEquals("FAIRE0:\nFAIRE1:\ngoto FAIRE1\nFAIT1:\nFAIRE2:\ngoto FAIRE2\nFAIT2:\ngoto FAIRE0\nFAIT0:\n", a.getOut());
     }

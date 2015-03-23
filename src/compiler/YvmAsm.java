@@ -235,30 +235,30 @@ public class YvmAsm extends Yvm {
         addInstructionTab("call lirent");
     }
 
-    @Override
-    public void siCond() {
-      super.siCond();
-      addInstructionTab("pop ax");
-      addInstructionTab("cmp ax,0");
-      addInstructionTab("je SINON");
-    }
+    //CONDITIONNELLE
     
     @Override
-    public void goToFsiCond() {
-      super.goToFsiCond();
-      addInstructionTab("jmp FSI");
+    public int goToFsiCond() {
+      int i = super.goToFsiCond();
+      addInstructionTab("jmp FSI"+i);
+      addInstruction("SINON"+i+":");
+      return i;
     }
 
     @Override 
-    public void sinonCond() {
-      super.sinonCond();
-      addInstruction("SINON");
+    public int sinonCond() {
+      int i = super.sinonCond();
+      addInstructionTab("pop ax");
+      addInstructionTab("cmp ax,0");
+      addInstructionTab("je SINON"+i);
+      return i;
     }
     
     @Override 
-    public void fsiCond() {
-      super.fsiCond();
-      addInstructionTab("FSI");
+    public int fsiCond() {
+      int i = super.fsiCond();
+      addInstructionTab("FSI"+i+":");
+      return i;
     }
 
     //// ITERATIONS
