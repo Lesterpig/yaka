@@ -1,0 +1,59 @@
+PROGRAMME iter2
+CONST aa = 1, bb = VRAI, cc = aa;
+VAR ENTIER a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;
+
+ECRIRE("Boucle simple");
+ALALIGNE;
+
+a = 0;
+b = 5;
+
+TANTQUE a < b FAIRE
+  ECRIRE(a);
+  a=a+1;
+  ALALIGNE;
+FAIT;
+
+ECRIRE("Boucle triple");
+ALALIGNE;
+
+x = 0;
+
+TANTQUE x < 10 FAIRE
+  y = 0;
+  TANTQUE y < 10 FAIRE
+    z = 0;
+    TANTQUE z < 10 FAIRE
+      ECRIRE(x);
+      ECRIRE(" - ");
+      ECRIRE(y);
+      ECRIRE(" - ");
+      ECRIRE(z);
+      ALALIGNE;
+      z=z+1;
+    FAIT;
+    y=y+1;
+  FAIT;
+  x=x+1;
+FAIT;
+
+
+ECRIRE("Test condition fausse dès le début");
+ALALIGNE;
+a = 5;
+b = 5;
+
+TANTQUE a < b FAIRE
+  ECRIRE("ERREUR ERREUR");
+FAIT;
+
+ECRIRE("Test avec une constante ");
+ALALIGNE;
+TANTQUE a > aa FAIRE
+  a = a - 2;
+  ECRIRE(a);
+  ALALIGNE;
+FAIT;
+
+
+FPROGRAMME
