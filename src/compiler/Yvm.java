@@ -156,7 +156,15 @@ public class Yvm {
         this.indexFaire++;
 	}
 	
+	public void iffauxFaire() {
+		int i = this.pileFaire.peek();
+		addInstruction("iffaux FAIT"+i);
+	}
+	
 	public void fermeFaire() {
-		addInstruction("FAIT"+(this.pileFaire.pop())+":");
+		int i = this.pileFaire.peek();
+		addInstruction("goto FAIRE"+i);
+		addInstruction("FAIT"+(i)+":");
+		this.pileFaire.pop();
 	}
 }
