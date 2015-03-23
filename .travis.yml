@@ -1,10 +1,12 @@
 language: java
 install:
-  - "sudo apt-get install javacc"
+  - "sudo apt-get install javacc dosemu"
 script:
   - "make javacc"
   - "make test"
-  - "make package"
+  - "./travis/configure-layout.sh"
+  - "make download-tasm"
+  - "make test-asm"
 jdk:
   - oraclejdk8
   - oraclejdk7

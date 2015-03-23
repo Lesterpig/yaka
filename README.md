@@ -17,6 +17,15 @@ Usage
 make                    # generates the parser
 make test               # execute unit tests
 make run FILE=test.txt  # executes the parser for file test.txt
+make download-tasm      # download tasm tools
+make test-asm           # launch asm compilation
+```
+
+Dosemu tests
+------------
+
+```
+dosemu -dumb "out.exe" 2> /dev/null
 ```
 
 Note
