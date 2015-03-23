@@ -3,6 +3,7 @@ package compiler;
 public class YvmAsm extends Yvm {
 
     private int messCounter = 0;
+    private int condCounter = 0;
 
     public YvmAsm() {
         super();
@@ -233,5 +234,31 @@ public class YvmAsm extends Yvm {
         addInstructionTab("lea dx,[bp"+arg+"]");
         addInstructionTab("push dx");
         addInstructionTab("call lirent");
+    }
+
+    //@Override
+    public void siCond() {
+      //super.siCond();
+      addInstructionTab("pop ax");
+      addInstructionTab("cmp ax,0");
+      addInstructionTab("je SINON" + ++condCounter);
+    }
+    
+    //@Override
+    public void goToFsiCond() {
+      //super.goToFsiCond();
+      addInstructionTab("jmp FSI" + condCounter);
+    }
+
+    //@Override 
+    public void sinonCond() {
+      //super.sinonCond("");
+      addInstruction("SINON " + condCounter);
+    }
+    
+    //@Override 
+    public void fsiCond() {
+      //super.fsiCond();
+      addInstructionTab("FSI" + condCounter);
     }
 }
