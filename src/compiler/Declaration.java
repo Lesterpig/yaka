@@ -8,12 +8,9 @@ public class Declaration {
     private int entier;
     private boolean booleen;
 
-	private int varOffset;
-
 	public Declaration() {
 		type = TypeList.ERREUR;
 		ident = "";
-		varOffset = -2;
 	}
 
 	public TypeList getType () {
@@ -65,20 +62,8 @@ public class Declaration {
       }
     }
 
-	public int getVarOffset() {
-		return varOffset;
-	}
-
-	public void setVarOffset(int i) {
-		varOffset = i;
-	}
-
 	public TabIdent getTabIdent() {
 		return Yaka.tabIdent;
-	}
-
-	public void updateVarOffset() {
-		varOffset += -2;
 	}
 
 	/*
@@ -86,7 +71,7 @@ public class Declaration {
 	Retourne faux s'il est present, vrai sinon.
 	*/
 	public boolean identValide() {
-		return !(Yaka.tabIdent.existIdent(ident));
+		return !(Yaka.tabIdent.existIdent(ident)); // TODO Autoriser variable locale et globale en même temps ?
 	}
 
 	/*
@@ -95,25 +80,23 @@ public class Declaration {
 	*/
 	public void ajoutVar(){
 		if(!identValide())
-			Yaka.ajoutLog("L'ident "+ident+" a deja ete declare.");
+			Yaka.ajoutLog("La variable "+ident+" a deja ete declare.");
 		else {
-			IdVar var = new IdVar(type, varOffset);
-			this.updateVarOffset();
-			Yaka.tabIdent.addIdent(ident, var);
+			Yaka.tabIdent.addVariable(ident, type);
 		}
 	}
 
   public void ajoutConst() {
     if(!identValide())
-		Yaka.ajoutLog("L'ident "+ident+" a deja ete declare.");
+		Yaka.ajoutLog("La constante "+ident+" a deja ete declare.");
 	else {
         IdConst cons;
         if (type == TypeList.BOOLEEN)
-          cons = new IdConst(booleen);
+            cons = new IdConst(booleen);
         else
-          cons = new IdConst(entier);
-
-            Yaka.tabIdent.addIdent(ident, cons);
+            cons = new IdConst(entier);
+        
+        Yaka.tabIdent.addIdent(ident, cons);
     }
   }
 

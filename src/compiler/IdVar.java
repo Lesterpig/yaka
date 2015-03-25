@@ -5,7 +5,7 @@ public class IdVar extends Ident {
 
   public IdVar(TypeList t, int o) {
     super(t);
-	offset = o;
+	  offset = o;
   }
 
   public int getOffset() {
