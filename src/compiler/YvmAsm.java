@@ -292,4 +292,15 @@ public class YvmAsm extends Yvm {
         addInstructionTab("je FAIT"+i);
         return i;
     }
+
+    //Fonctions
+    //@Override
+    //public int principal() {
+    //}
+
+    //@Override
+    //public void ecrireFonc() {
+
+    //}
+    
 }
