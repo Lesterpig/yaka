@@ -186,8 +186,8 @@ void analyse() : {}
 {
     <PROGRAMME>
     <ident>
-    (declFonction())*
-    <PRINCIPAL>
+    ( declFonction() )*
+    <PRINCIPAL> { yvm.principal(); }
     bloc()
     <FPRINCIPAL>
     <FPROGRAMME> { yvm.queue(); }
@@ -197,9 +197,9 @@ void declFonction() : {}
 {
     type()
     <FONCTION>
-    <ident>
+    <ident> { yvm.ecrireFonc(YakaTokenManager.identLu); }
     paramForms()
-    bloc()
+    bloc() { /*yvm.fermeBloc(NBPARAMS);*/ }
     <FFONCTION>
 }
 
@@ -216,6 +216,7 @@ void paramForm() : {}
 
 void bloc() : {}
 {
+    { yvm.ouvreBloc(tabIdent.getNbVars()); }
     ( declConst() )*
     ( declVar() )* { yvm.entete(); yvm.ouvrePrinc(tabIdent.getNbVars()*2); }
     suiteInstr()
@@ -290,7 +291,7 @@ void instruction() : {}
 void retourne() : {}
 {
     <RETOURNE>
-    expression()
+    expression() { /*yvm.retourne(NBPARAMS);*/ }
 }
 
 void affectation() : {}
@@ -399,8 +400,8 @@ void primaire (): {}
 void valeur () : {}
 {
     <entier> { expression.ajoutType(TypeList.ENTIER); yvm.iconst(YakaTokenManager.entierLu); }
-|   <ident> { tabIdent.computeIdent(YakaTokenManager.identLu); }
-    ( argumentsFonction() )?
+|   <ident> { tabIdent.computeIdent(YakaTokenManager.identLu); yvm.ajoutFonc(YakaTokenManager.identLu); }
+    ( argumentsFonction() )? { yvm.callFonc(); }
 |   <VRAI> { expression.ajoutType(TypeList.BOOLEEN); }
 |   <FAUX> { expression.ajoutType(TypeList.BOOLEEN); }
 

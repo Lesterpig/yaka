@@ -252,8 +252,8 @@ public class Yvm {
         addInstruction("reserveRetour");
     }
     
-    public void callFonc(String nom) {
-        addInstruction("call "+nom);
+    public void callFonc() {
+        addInstruction("call "+retraitFonc());
     }
     
     //prend en param le nb de param
