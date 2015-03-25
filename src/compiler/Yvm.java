@@ -215,4 +215,49 @@ public class Yvm {
         return i;
     }
 
+    //FONCTIONS
+    //PILE
+    public void ajoutFonc(String nom) {
+        pileFonc.push(nom);
+    }
+    
+    public String retraitFonc() {
+       pileFonc.pop();
+    }
+    
+    public String regardeFonc() {
+        publicFonc.peek();
+    }
+    
+    //METHODES
+    public void principal() {
+        addInstruction("main:");
+    }
+    
+    public void ecrireFonc(String nom) {
+        addInstruction(nom = ":");
+    }
+    
+    //prend en param le nb de var locales
+    public void ouvreBloc(int n) {
+        addInstruction("ouvreBloc "+2*n);
+    }
+    
+    //prend en param le nb de param
+    public void fermeBloc(int n) {
+        addInstruction("fermeBloc "+2*n);
+    }
+    
+    public void reserveRetour() {
+        addInstruction("reserveRetour");
+    }
+    
+    public void callFonc(String nom) {
+        addInstruction("call "+nom);
+    }
+    
+    //prend en param le nb de param
+    public void retourne(int  n) {
+        addInstruction("ireturn "+ (n+2)*2);
+    }
 }
