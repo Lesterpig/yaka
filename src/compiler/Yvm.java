@@ -222,11 +222,11 @@ public class Yvm {
     }
     
     public String retraitFonc() {
-       pileFonc.pop();
+       return pileFonc.pop();
     }
     
     public String regardeFonc() {
-        publicFonc.peek();
+        return pileFonc.peek();
     }
     
     //METHODES
