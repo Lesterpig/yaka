@@ -295,12 +295,29 @@ public class YvmAsm extends Yvm {
 
     //Fonctions
     //@Override
-    //public int principal() {
-    //}
+    public void principal() {
+      addInstruction("debut:");
+      addInstructionTab("STARTUPCODE");
+    }
 
     //@Override
-    //public void ecrireFonc() {
+    public void ecrireFonc() {
+    }
 
-    //}
+    public void ouvreBloc(int n) {
+
+    }
+
+    public void fermeBloc(int n) {
+    }
+
+    public void reserveRetour() {
+    }
+
+    public void callFonc() {
+    }
+
+    public void retourne(int n) {
+    }
     
 }
