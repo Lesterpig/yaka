@@ -16,6 +16,9 @@ public class Yvm {
     protected Stack<Integer> pileCond;
     protected int indexCond;
 
+    //FONCTIONS
+    protected Stack<String> pileFonc;
+    
     public Yvm() {
         this.out = "";
         //ITERATION
@@ -24,6 +27,8 @@ public class Yvm {
         //CONDITIONNELLE
         this.indexCond = 0;
         this.pileCond = new Stack<Integer>();
+        //FONCTIONS
+        this.pileFonc = new Stack<String>();
     }
 
     public String getOut() {
