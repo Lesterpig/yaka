@@ -197,15 +197,19 @@ void declFonction() : {}
 {
     type() /* Type de retour, a verifier avec le type effectivement retourne. */
     <FONCTION>
-    <ident> { yvm.ecrireFonc(YakaTokenManager.identLu); }
-    paramForms()
+    <ident> {
+			IdFn fn = new IdFn(declaration.getType()); 
+			tabIdent.addFn(YakaTokenManager.identLu, fn);
+			yvm.ecrireFonc(YakaTokenManager.identLu);
+			}
+    paramForms() { tabIdent.searchFn(yvm.regardeFonc()).computeParametres(); }
     bloc() { /*yvm.fermeBloc(NBPARAMS);*/ }
     <FFONCTION>
 }
 
 void paramForms() : {}
 {
-    (paramForm() ("," paramForm())*)?
+    "(" (paramForm() ("," paramForm())*)? ")"
 }
 
 void paramForm() : {}
