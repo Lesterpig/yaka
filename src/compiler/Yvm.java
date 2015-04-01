@@ -235,7 +235,7 @@ public class Yvm {
     }
     
     public void ecrireFonc(String nom) {
-        addInstruction(nom = ":");
+        addInstruction(nom + ":");
     }
     
     //prend en param le nb de var locales
@@ -253,7 +253,7 @@ public class Yvm {
     }
     
     public void callFonc() {
-        addInstruction("call "+retraitFonc());
+        addInstruction("call "+regardeFonc());
     }
     
     //prend en param le nb de param

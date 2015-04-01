@@ -294,30 +294,44 @@ public class YvmAsm extends Yvm {
     }
 
     //Fonctions
-    //@Override
+    @Override
     public void principal() {
+      super.principal();
       addInstruction("debut:");
       addInstructionTab("STARTUPCODE");
     }
 
-    //@Override
-    public void ecrireFonc() {
+    @Override
+    public void ecrireFonc(String nom) {
+        super.ecrireFonc(nom);
+        addInstruction(nom + ":");
     }
 
     public void ouvreBloc(int n) {
-
+      super.ouvreBloc(n);
+      addInstructionTab("enter "+2*n+",0");
     }
 
     public void fermeBloc(int n) {
+      super.fermeBloc(n);
+      addInstructionTab("leave");
+      addInstructionTab("ret "+2*n);
     }
 
     public void reserveRetour() {
+      super.reserveRetour();
+      addInstructionTab("sub sp,2");
     }
 
     public void callFonc() {
+      super.callFonc();
+      addInstructionTab("call "+retraitFonc());
     }
 
     public void retourne(int n) {
+      super.retourne(n);
+      addInstructionTab("pop ax");
+      addInstructionTab("mov [bp+"+n+"], ax");
     }
     
 }
