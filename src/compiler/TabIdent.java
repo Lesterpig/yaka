@@ -2,6 +2,7 @@ package compiler;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.lang.IndexOutOfBoundsException;
 import generated.Yaka;
 
 public class TabIdent {
@@ -91,4 +92,12 @@ public class TabIdent {
       return fn.getParametres().size();
   }
 
+  public TypeList getTypeOfParam(String fonc, int pos) {
+    try {
+      IdFn fn = searchFn(fonc);
+      return fn.parametres.values().get(pos);
+    } catch (IndexOutOfBoundsException e) {
+      Yaka.ajoutLog("Trop de parametres pour la fonction " + fonc);
+    }
+  }
 }

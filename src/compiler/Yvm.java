@@ -18,6 +18,7 @@ public class Yvm {
 
     //FONCTIONS
     protected Stack<String> pileFonc;
+    protected int indexParam;
     
     public Yvm() {
         this.out = "";
@@ -29,6 +30,7 @@ public class Yvm {
         this.pileCond = new Stack<Integer>();
         //FONCTIONS
         this.pileFonc = new Stack<String>();
+        this.indexParam = 0;
     }
 
     public String getOut() {
@@ -227,6 +229,18 @@ public class Yvm {
     
     public String regardeFonc() {
         return pileFonc.peek();
+    }
+    
+    public void incIndexParam() {
+        indexParam++;
+    }
+    
+    public int getIndexParam() {
+        return indexParam;
+    }
+    
+    public void resetIndexParam() {
+        indexParam = 0;
     }
     
     //METHODES

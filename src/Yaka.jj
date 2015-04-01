@@ -418,7 +418,30 @@ void valeur () : {}
 
 void argumentsFonction() : {}
 {
-    "(" ( expression() ( "," expression() )* )? ")"
+    "(" ( expression() {
+                        TypeList to = expression.regardeType();
+                        TypeList ta = tabIdent.getTypeOfParam(yvm.regardeFonc(), yvm.getIndexParam());
+                        if(ta != to)
+                            Yaka.ajoutLog("L'expression retourne un type " + to + " au lieu d'un " + ta + ". Parametre " + yvm.getIndexParam());
+                        yvm.incIndexParam();
+                        }
+                        
+                        ( "," expression() {
+                                            TypeList to = expression.regardeType();
+                                            TypeList ta = tabIdent.getTypeOfParam(yvm.regardeFonc(), yvm.getIndexParam());
+                                            if(ta != to)
+                                                Yaka.ajoutLog("L'expression retourne un type " + to + " au lieu d'un " + ta + ". Parametre " + yvm.getIndexParam());
+                                            yvm.incIndexParam();
+                                            }
+                        )*
+        )?
+        ")" {
+                int io = yvm.getIndexParam();
+                int ia = tabIdent.getNbParamsFn(yvm.regardeFonc());
+                if(ia > io)
+                    Yaka.ajoutLog("Pas assez de parametres pour la fonction " + yvm.regardeFonc() + " : obtenu " + io + ", attendu " + ia);
+                yvm.resetIndexParam();
+            }
 }
 
 void opRel() : {}
