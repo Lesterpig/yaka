@@ -195,7 +195,7 @@ void analyse() : {}
 
 void declFonction() : {}
 {
-    type()
+    type() /* Type de retour, a verifier avec le type effeectivement retourne. */
     <FONCTION>
     <ident> { yvm.ecrireFonc(YakaTokenManager.identLu); }
     paramForms()
@@ -211,7 +211,7 @@ void paramForms() : {}
 void paramForm() : {}
 {
     type()
-    <ident>
+    <ident> /* Ajouter les params dans l'ifFn */
 }
 
 void bloc() : {}
@@ -291,7 +291,7 @@ void instruction() : {}
 void retourne() : {}
 {
     <RETOURNE>
-    expression() { /*yvm.retourne(NBPARAMS);*/ }
+    expression() { /* Tester le type avec le type de retour attendu. */ /*yvm.retourne(NBPARAMS);*/ }
 }
 
 void affectation() : {}
