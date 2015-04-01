@@ -184,6 +184,7 @@ TOKEN  :
 
 void analyse() : {}
 {
+    { yvm.entete(); }
     <PROGRAMME>
     <ident>
     ( declFonction() )*
@@ -222,7 +223,7 @@ void bloc() : {}
 {
     { yvm.ouvreBloc(tabIdent.getNbVars()); }
     ( declConst() )*
-    ( declVar() )* { yvm.entete(); yvm.ouvrePrinc(tabIdent.getNbVars()*2); }
+    ( declVar() )* { yvm.ouvrePrinc(tabIdent.getNbVars()*2); }
     suiteInstr()
 }
 

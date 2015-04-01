@@ -26,8 +26,6 @@ public class YvmAsm extends Yvm {
         addInstruction(".model SMALL");
         addInstruction(".586");
         addInstruction(".CODE");
-        addInstruction("debut:");
-        addInstructionTab("STARTUPCODE");
     }
 
     @Override
