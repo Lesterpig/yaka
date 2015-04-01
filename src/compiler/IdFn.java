@@ -5,22 +5,32 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class IdFn extends IdVar {
+public class IdFn extends Ident {
 
   protected TypeList typeRes;
   protected LinkedHashMap<String, TypeList> parametres;
   protected HashMap<String, IdVar> computedParametres;
 
-  public IdFn(TypeList t, int o, TypeList r) {
-    super(t,o);
+  /**
+   * Construit une fonction
+   * @param r Le type de retour de la fonction
+   */
+  public IdFn(TypeList r) {
+    super(TypeList.FONCTION);
     parametres = new LinkedHashMap<String, TypeList>();
     typeRes = r;
   }
+
 
   public TypeList getTypeRes() {
     return typeRes;
   }
 
+  /**
+   * Ajout d'un nouveau paramètre à une fonction
+   * @param key  Le nom du paramètre
+   * @param type Le type du paramètre
+   */
   public void addParametre(String key, TypeList type) {
     if(parametres.get(key) != null) {
       Yaka.ajoutLog("Le parametre " + key + " a deja ete defini dans la fonction.");
@@ -46,7 +56,7 @@ public class IdFn extends IdVar {
 
 
   /**
-   * @return An usable hashmap for parameters load in stack
+   * @return La liste des paramètres de la fonction munis de leur offset
    */
   public HashMap<String, IdVar> getParametres() {
     if(computedParametres == null)

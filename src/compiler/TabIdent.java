@@ -26,6 +26,10 @@ public class TabIdent {
     return locaux.get(key);
   }
 
+  public IdFn searchFn(String key) {
+    return globaux.get(key);
+  }
+
   public void computeIdent(String ident) {
     Ident id = searchIdent(ident);
 
@@ -76,6 +80,13 @@ public class TabIdent {
     return varNb;
   }
 
-  // TODO Add a "loadFn()" function when a function is called
+  public int getNbParamsFn(String key) {
+    IdFn fn = searchFn(key);
+    if(fn == null)
+      return -1;
+
+    else
+      return fn.getParametres().size();
+  }
 
 }
