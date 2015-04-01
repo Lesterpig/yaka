@@ -236,7 +236,7 @@ public class YvmAsm extends Yvm {
     }
 
     //CONDITIONNELLE
-    
+
     @Override
     public int goToFsiCond() {
       int i = super.goToFsiCond();
@@ -245,7 +245,7 @@ public class YvmAsm extends Yvm {
       return i;
     }
 
-    @Override 
+    @Override
     public int sinonCond() {
       int i = super.sinonCond();
       addInstructionTab("pop ax");
@@ -253,8 +253,8 @@ public class YvmAsm extends Yvm {
       addInstructionTab("je SINON"+i);
       return i;
     }
-    
-    @Override 
+
+    @Override
     public int fsiCond() {
       int i = super.fsiCond();
       addInstructionTab("FSI"+i+":");
@@ -262,7 +262,7 @@ public class YvmAsm extends Yvm {
     }
 
     //// ITERATIONS
-    
+
     @Override
     public int ouvreFaire() {
         int i = super.ouvreFaire();
@@ -333,5 +333,5 @@ public class YvmAsm extends Yvm {
       addInstructionTab("pop ax");
       addInstructionTab("mov [bp+"+(n+2)*2+"], ax");
     }
-    
+
 }

@@ -47,9 +47,9 @@ public class IdFn extends Ident {
     computedParametres = new HashMap<String, IdVar>();
 
     int i = 0;
-    int s = parametres.size();
+    int s = parametres.size()*2;
     for (Map.Entry<String, TypeList> entry : parametres.entrySet()) {
-      int offset = s + 4 - (++i);
+      int offset = s + 4 - (++i)*2;
       computedParametres.put(entry.getKey(), new IdVar(entry.getValue(), offset));
     }
   }
