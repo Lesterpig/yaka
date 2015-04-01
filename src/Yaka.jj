@@ -298,7 +298,7 @@ void retourne() : {}
     expression() {
                     if(expression.regardeType() != tabIdent.searchFn(yvm.regardeFonc()).getTypeRes())
                         Yaka.ajoutLog("Le type de retour n'est pas celui attendu : obtenu " + expression.regardeType() + " ; attendu " + tabIdent.searchFn(yvm.regardeFonc()).getTypeRes());
-                    yvm.retourne(tabIdent.searchFn(yvm.regardeFonc()));
+                    yvm.retourne(tabIdent.getNbParamsFn(yvm.regardeFonc()));
                  }
 }
 
