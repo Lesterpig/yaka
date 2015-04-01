@@ -331,7 +331,7 @@ public class YvmAsm extends Yvm {
     public void retourne(int n) {
       super.retourne(n);
       addInstructionTab("pop ax");
-      addInstructionTab("mov [bp+"+n+"], ax");
+      addInstructionTab("mov [bp+"+(n+2)*2+"], ax");
     }
     
 }
