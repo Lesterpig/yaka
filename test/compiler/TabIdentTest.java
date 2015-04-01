@@ -12,6 +12,7 @@ public class TabIdentTest {
     @Before
     public void init() {
         this.t = new TabIdent();
+        Yaka.errorLog = "";
     }
 
     @Test
