@@ -195,7 +195,7 @@ void analyse() : {}
 
 void declFonction() : {}
 {
-    type() /* Type de retour, a verifier avec le type effeectivement retourne. */
+    type() /* Type de retour, a verifier avec le type effectivement retourne. */
     <FONCTION>
     <ident> { yvm.ecrireFonc(YakaTokenManager.identLu); }
     paramForms()
@@ -211,7 +211,7 @@ void paramForms() : {}
 void paramForm() : {}
 {
     type()
-    <ident> /* Ajouter les params dans l'ifFn */
+    <ident> /* Ajouter les params dans l'idFn */
 }
 
 void bloc() : {}
