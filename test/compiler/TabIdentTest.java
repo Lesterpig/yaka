@@ -23,7 +23,7 @@ public class TabIdentTest {
 
         t.addVariable("fail", TypeList.FONCTION);
         assertEquals(t.searchIdent("fail"), null);
-        assertNotEquals(Yaka.errorLog, "");
+        assertFalse(Yaka.errorLog.equals(""));
     }
 
     @Test
