@@ -82,9 +82,11 @@ public class TabIdent {
 
   public int getNbParamsFn(String key) {
     IdFn fn = searchFn(key);
-    if(fn == null)
+    if(fn == null) {
+      Yaka.ajoutLog("La fonction " + key + " n'a pas ete declaree.");
       return -1;
-
+    }
+    
     else
       return fn.getParametres().size();
   }

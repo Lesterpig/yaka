@@ -195,16 +195,16 @@ void analyse() : {}
 
 void declFonction() : {}
 {
-    type() /* Type de retour, a verifier avec le type effectivement retourne. */
+    type()
     <FONCTION>
     <ident> {
 			IdFn fn = new IdFn(declaration.getType()); 
 			tabIdent.addFn(YakaTokenManager.identLu, fn);
 			yvm.ecrireFonc(YakaTokenManager.identLu);
 			}
-    paramForms() { tabIdent.searchFn(yvm.regardeFonc()).computeParametres(); }
-    bloc() { /*yvm.fermeBloc(NBPARAMS);*/ }
-    <FFONCTION>
+    paramForms()
+    bloc() { yvm.fermeBloc(tabIdent.getNbParamsFn(yvm.regardeFonc())); }
+    <FFONCTION> { yvm.retraitFonc(); }
 }
 
 void paramForms() : {}
@@ -215,7 +215,7 @@ void paramForms() : {}
 void paramForm() : {}
 {
     type()
-    <ident> /* Ajouter les params dans l'idFn */
+    <ident> { tabIdent.searchFn(yvm.regardeFonc()).addParametre(YakaTokenManager.identLu, declaration.getType()); }
 }
 
 void bloc() : {}
@@ -295,7 +295,11 @@ void instruction() : {}
 void retourne() : {}
 {
     <RETOURNE>
-    expression() { /* Tester le type avec le type de retour attendu. */ /*yvm.retourne(NBPARAMS);*/ }
+    expression() {
+                    if(expression.regardeType() != tabIdent.searchFn(yvm.regardeFonc()).getTypeRes())
+                        Yaka.ajoutLog("Le type de retour n'est pas celui attendu : obtenu " + expression.regardeType() + " ; attendu " + tabIdent.searchFn(yvm.regardeFonc()).getTypeRes());
+                    yvm.retourne(tabIdent.searchFn(yvm.regardeFonc()));
+                 }
 }
 
 void affectation() : {}
@@ -405,7 +409,7 @@ void valeur () : {}
 {
     <entier> { expression.ajoutType(TypeList.ENTIER); yvm.iconst(YakaTokenManager.entierLu); }
 |   <ident> { tabIdent.computeIdent(YakaTokenManager.identLu); yvm.ajoutFonc(YakaTokenManager.identLu); }
-    ( argumentsFonction() )? { yvm.callFonc(); }
+    ( argumentsFonction() { yvm.callFonc(); } )?
 |   <VRAI> { expression.ajoutType(TypeList.BOOLEEN); }
 |   <FAUX> { expression.ajoutType(TypeList.BOOLEEN); }
 
