@@ -20,6 +20,8 @@ public class Yvm {
     protected Stack<String> pileFonc;
     protected Stack<Integer> indexParam;
 
+    protected String lastFonc;
+
     public Yvm() {
         this.out = "";
         //ITERATION
@@ -278,6 +280,7 @@ public class Yvm {
 
     public void callFonc() {
         addInstruction("call "+regardeFonc());
+        lastFonc = this.retraitFonc();
     }
 
     //prend en param le nb de param

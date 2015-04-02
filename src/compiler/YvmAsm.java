@@ -323,7 +323,7 @@ public class YvmAsm extends Yvm {
 
     public void callFonc() {
       super.callFonc();
-      addInstructionTab("call "+retraitFonc());
+      addInstructionTab("call "+lastFonc);
     }
 
     public void retourne(int n) {
