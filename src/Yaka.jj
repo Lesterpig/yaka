@@ -222,9 +222,8 @@ void paramForm() : {}
 
 void bloc() : {}
 {
-    { yvm.ouvreBloc(tabIdent.getNbVars()); }
     ( declConst() )*
-    ( declVar() )* { yvm.ouvrePrinc(tabIdent.getNbVars()*2); }
+    ( declVar() )* { yvm.ouvreBloc(tabIdent.getNbVars()); }
     suiteInstr()
 }
 
@@ -411,7 +410,7 @@ void valeur () : {}
 {
     <entier> { expression.ajoutType(TypeList.ENTIER); yvm.iconst(YakaTokenManager.entierLu); }
 |   <ident>{ tabIdent.computeIdent(YakaTokenManager.identLu); }
-    (  {yvm.ajoutFonc(YakaTokenManager.identLu); yvm.addIndexParam(); expression.ajoutType(tabIdent.searchFn(yvm.regardeFonc()).getTypeRes()); }
+    (  {yvm.ajoutFonc(YakaTokenManager.identLu); yvm.addIndexParam(); expression.ajoutType(tabIdent.searchFn(yvm.regardeFonc()).getTypeRes()); yvm.reserveRetour(); }
        argumentsFonction()
        { yvm.callFonc();  } )?
 |   <VRAI> { expression.ajoutType(TypeList.BOOLEEN); }
