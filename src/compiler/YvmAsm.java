@@ -170,14 +170,27 @@ public class YvmAsm extends Yvm {
     @Override
     public void iload(int arg) {
         super.iload(arg);
-        addInstructionTab("push word ptr [bp" + arg + "]");
+        String str;
+        if(arg > 0)
+            str = "+" + arg;
+        else
+            str = arg + "";
+
+        addInstructionTab("push word ptr [bp" + str + "]");
     }
 
     @Override
     public void istore(int arg) {
         super.istore(arg);
+
+        String str;
+        if(arg > 0)
+            str = "+" + arg;
+        else
+            str = arg + "";
+
         addInstructionTab("pop ax");
-        addInstructionTab("mov word ptr [bp" + arg + "],ax");
+        addInstructionTab("mov word ptr [bp" + str + "],ax");
     }
 
     @Override
