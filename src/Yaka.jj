@@ -12,7 +12,7 @@ public class Yaka {
     public static Expression expression;
     public static Yvm yvm;
     public static String errorLog = "";
-    
+
     public static void ajoutLog(String s) {
         errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";
     }
@@ -21,27 +21,27 @@ public class Yaka {
         Yaka analyseur;
         java.io.InputStream input;
         java.io.FileWriter output;
-        
+
         input  = System.in;
         output = null;
-        
+
         tabIdent = new TabIdent();
         declaration = new Declaration();
         expression = new Expression();
         yvm = new YvmAsm();
-        
+
         String inPath  = null;
         String outPath = null;
-        
+
         String lastArg = "";
         for(int i = 0; i < args.length; i++) {
-            
+
             if(args[i].equals("-y"))
                 yvm = new Yvm();
-            
+
             else if(lastArg.equals("-o"))
                 outPath = args[i];
-            
+
               else if(args[i].equals("-o")) {
                 lastArg = args[i];
                 continue;
@@ -54,9 +54,9 @@ public class Yaka {
                 System.err.println("Usage: java Yaka [-y] [-o output] [filename]");
                 return;
             }
-            
+
             lastArg = "";
-            
+
         }
 
         if(inPath != null) {
@@ -67,7 +67,7 @@ public class Yaka {
                 return;
             }
         }
-        
+
         if(outPath != null) {
             try {
                 output = new java.io.FileWriter(outPath);
@@ -76,11 +76,11 @@ public class Yaka {
                 return;
             }
         }
-        
+
         try {
             analyseur = new Yaka(input);
             analyseur.analyse();
-            
+
             if(errorLog.equals("")) {
                 if(output == null)
                     System.out.println(yvm.getOut());
@@ -90,10 +90,10 @@ public class Yaka {
                     output.close();
                 }
             }
-            
+
             else
                 System.err.println(errorLog);
-        
+
         } catch (ParseException e) {
             String msg = e.getMessage();
             msg = msg.substring(0,msg.indexOf("\n"));
@@ -199,13 +199,14 @@ void declFonction() : {}
     type()
     <FONCTION>
     <ident> {
-			IdFn fn = new IdFn(declaration.getType()); 
+			IdFn fn = new IdFn(declaration.getType());
 			tabIdent.addFn(YakaTokenManager.identLu, fn);
+            yvm.ajoutFonc(YakaTokenManager.identLu);
 			yvm.ecrireFonc(YakaTokenManager.identLu);
 			}
     paramForms()
     bloc() { yvm.fermeBloc(tabIdent.getNbParamsFn(yvm.regardeFonc())); }
-    <FFONCTION> { yvm.retraitFonc(); }
+    <FFONCTION> { yvm.retraitFonc(); tabIdent.clear(); }
 }
 
 void paramForms() : {}
@@ -342,7 +343,7 @@ void ecriture() : {}
     "("
     ( expression()
         {
-        expression.testEcriture(expression.regardeType()); 
+        expression.testEcriture(expression.regardeType());
         yvm.ecrireType(expression.regardeType());
         }
     | <chaine> { yvm.ecrireChaine(YakaTokenManager.chaineLue); } )
@@ -409,8 +410,8 @@ void primaire (): {}
 void valeur () : {}
 {
     <entier> { expression.ajoutType(TypeList.ENTIER); yvm.iconst(YakaTokenManager.entierLu); }
-|   <ident> { tabIdent.computeIdent(YakaTokenManager.identLu); yvm.ajoutFonc(YakaTokenManager.identLu); }
-    ( argumentsFonction() { yvm.callFonc(); } )?
+|   <ident>{ tabIdent.computeIdent(YakaTokenManager.identLu); }
+    ( {yvm.ajoutFonc(YakaTokenManager.identLu); } argumentsFonction() { yvm.callFonc(); } )?
 |   <VRAI> { expression.ajoutType(TypeList.BOOLEEN); }
 |   <FAUX> { expression.ajoutType(TypeList.BOOLEEN); }
 
@@ -425,12 +426,12 @@ void argumentsFonction() : {}
                             Yaka.ajoutLog("L'expression retourne un type " + to + " au lieu d'un " + ta + ". Parametre " + yvm.getIndexParam());
                         yvm.incIndexParam();
                         }
-                        
+
                         ( "," expression() {
-                                            TypeList to = expression.regardeType();
-                                            TypeList ta = tabIdent.getTypeOfParam(yvm.regardeFonc(), yvm.getIndexParam());
-                                            if(ta != to)
-                                                Yaka.ajoutLog("L'expression retourne un type " + to + " au lieu d'un " + ta + ". Parametre " + yvm.getIndexParam());
+                                            TypeList to2 = expression.regardeType();
+                                            TypeList ta2 = tabIdent.getTypeOfParam(yvm.regardeFonc(), yvm.getIndexParam());
+                                            if(ta2 != to2)
+                                                Yaka.ajoutLog("L'expression retourne un type " + to2 + " au lieu d'un " + ta2 + ". Parametre " + yvm.getIndexParam());
                                             yvm.incIndexParam();
                                             }
                         )*

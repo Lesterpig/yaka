@@ -228,7 +228,12 @@ public class Yvm {
     }
     
     public String regardeFonc() {
-        return pileFonc.peek();
+        try {
+            return pileFonc.peek();
+        }
+        catch(EmptyStackException e) {
+            return null;
+        }
     }
     
     public void incIndexParam() {

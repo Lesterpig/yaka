@@ -64,4 +64,8 @@ public class IdFn extends Ident {
     return computedParametres;
   }
 
+  public IdVar searchParametre(String key) {
+    return getParametres().get(key);
+  }
+
 }

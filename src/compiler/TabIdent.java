@@ -2,6 +2,7 @@ package compiler;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 import java.lang.IndexOutOfBoundsException;
 import generated.Yaka;
 
@@ -24,7 +25,15 @@ public class TabIdent {
   }
 
   public Ident searchIdent(String key) {
-    return locaux.get(key);
+    Ident local = locaux.get(key);
+    if(local != null)
+      return local;
+
+    IdFn currentFn = searchFn(Yaka.yvm.regardeFonc());
+    if(currentFn != null)
+      return currentFn.searchParametre(key);
+
+    return null;
   }
 
   public IdFn searchFn(String key) {
@@ -32,6 +41,12 @@ public class TabIdent {
   }
 
   public void computeIdent(String ident) {
+
+
+    IdFn fn = searchFn(ident);
+    if(fn != null)
+      return;
+
     Ident id = searchIdent(ident);
 
     if(id == null) {
@@ -87,7 +102,7 @@ public class TabIdent {
       Yaka.ajoutLog("La fonction " + key + " n'a pas ete declaree.");
       return -1;
     }
-    
+
     else
       return fn.getParametres().size();
   }
@@ -95,9 +110,10 @@ public class TabIdent {
   public TypeList getTypeOfParam(String fonc, int pos) {
     try {
       IdFn fn = searchFn(fonc);
-      return fn.parametres.values().get(pos);
+      return (new ArrayList<TypeList>(fn.parametres.values())).get(pos);
     } catch (IndexOutOfBoundsException e) {
       Yaka.ajoutLog("Trop de parametres pour la fonction " + fonc);
+      return TypeList.ERREUR;
     }
   }
 }
