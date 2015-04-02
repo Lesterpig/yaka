@@ -7,7 +7,7 @@ import generated.*;
 
 public class Expression {
 
-    private Stack<TypeList> types;
+    public Stack<TypeList> types;
     private Stack<Operateur> operateurs;
 
     public Expression() {

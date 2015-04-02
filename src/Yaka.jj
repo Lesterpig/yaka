@@ -411,7 +411,9 @@ void valeur () : {}
 {
     <entier> { expression.ajoutType(TypeList.ENTIER); yvm.iconst(YakaTokenManager.entierLu); }
 |   <ident>{ tabIdent.computeIdent(YakaTokenManager.identLu); }
-    ( {yvm.ajoutFonc(YakaTokenManager.identLu); } argumentsFonction() { yvm.callFonc(); } )?
+    (  {yvm.ajoutFonc(YakaTokenManager.identLu); yvm.addIndexParam(); expression.ajoutType(tabIdent.searchFn(yvm.regardeFonc()).getTypeRes()); }
+       argumentsFonction()
+       { yvm.callFonc();  } )?
 |   <VRAI> { expression.ajoutType(TypeList.BOOLEEN); }
 |   <FAUX> { expression.ajoutType(TypeList.BOOLEEN); }
 
@@ -425,6 +427,7 @@ void argumentsFonction() : {}
                         if(ta != to)
                             Yaka.ajoutLog("L'expression retourne un type " + to + " au lieu d'un " + ta + ". Parametre " + yvm.getIndexParam());
                         yvm.incIndexParam();
+                        expression.retraitType();
                         }
 
                         ( "," expression() {
@@ -442,6 +445,7 @@ void argumentsFonction() : {}
                 if(ia > io)
                     Yaka.ajoutLog("Pas assez de parametres pour la fonction " + yvm.regardeFonc() + " : obtenu " + io + ", attendu " + ia);
                 yvm.resetIndexParam();
+                expression.retraitType();
             }
 }
 
