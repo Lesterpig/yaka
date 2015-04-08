@@ -6,8 +6,8 @@ script:
   #- "make test"
   - "./travis/configure-layout.sh"
   - "make download-tasm"
-  - "make test-asm FILE=example/exp.yaka"
-  - "make test-asm FILE=example/function.yaka"
+  - "make run-asm FILE=example/function.yaka"
+  - "make run-asm FILE=example/factorielle.yaka"
 jdk:
   - oraclejdk8
   - oraclejdk7

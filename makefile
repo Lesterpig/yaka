@@ -9,20 +9,6 @@ TESTS = compiler.OperateurTest compiler.ExpressionTest compiler.YvmTest compiler
 
 defaut: javacc javac
 
-usage help:
-	@echo "Usage: make [command] [option=value]"
-	@echo
-	@echo "    make         : builds the compiler"
-	@echo "    make help    : displays this page"
-	@echo "    make javacc  : only builds the Yaka.jj file"
-	@echo "    make javac   : only builds java to class files"
-	@echo "    make run     : runs the compiler"
-	@echo "         option ->  make run FILE=pathToFile"
-	@echo "    make test    : runs the test (needs JUnit4)"
-	@echo "    make package : packages the compiler in a .jar file"
-	@echo "    make clean   : removes generated files"
-	@echo
-
 javacc:
 	@mkdir -p class
 	@javacc -OUTPUT_DIRECTORY=src/generated src/Yaka.jj
@@ -32,8 +18,6 @@ javac:
 	@find . -name "*.java" -print | xargs javac -d class -classpath .:/usr/share/java/junit4.jar
 	@echo DONE
 
-run:
-	@java -classpath class generated.Yaka $(FILE)
 
 test: javac
 	@java -classpath class:/usr/share/java/junit4.jar org.junit.runner.JUnitCore $(TESTS)
@@ -57,14 +41,14 @@ download-tasm:
 generate-asm:
 	@java -jar Yaka.jar $(FILE) > out.asm
 
-compile-asm: 
+compile-asm:
 	@dosemu -dumb "./asm-dosemu.bat" 2> /dev/null
 	@test -e biblio.obj
 	@test -e out.obj
 	@test -e out.exe
 
-test-asm: package
+run-asm:
 	@sudo sysctl -w vm.mmap_min_addr=0
 	@make generate-asm FILE=$(FILE)
 	@make compile-asm
-
+	@dosemu -dumb out.exe
