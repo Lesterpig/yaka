@@ -22,6 +22,8 @@ public abstract class Ident {
 		return "BOOL";
 	case ENTIER:
 		return "ENT";
+  case FONCTION:
+    return "FN";
 	default:
 		return "ERR";
 	}

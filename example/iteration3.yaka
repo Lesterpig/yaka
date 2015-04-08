@@ -1,4 +1,5 @@
 PROGRAMME iter2
+PRINCIPAL
 CONST aa = 1, bb = VRAI, cc = aa;
 VAR ENTIER a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;
 
@@ -55,5 +56,5 @@ TANTQUE a > aa FAIRE
   ALALIGNE;
 FAIT;
 
-
+FPRINCIPAL
 FPROGRAMME

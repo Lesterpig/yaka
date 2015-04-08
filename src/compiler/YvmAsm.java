@@ -26,8 +26,6 @@ public class YvmAsm extends Yvm {
         addInstruction(".model SMALL");
         addInstruction(".586");
         addInstruction(".CODE");
-        addInstruction("debut:");
-        addInstructionTab("STARTUPCODE");
     }
 
     @Override
@@ -172,14 +170,27 @@ public class YvmAsm extends Yvm {
     @Override
     public void iload(int arg) {
         super.iload(arg);
-        addInstructionTab("push word ptr [bp" + arg + "]");
+        String str;
+        if(arg > 0)
+            str = "+" + arg;
+        else
+            str = arg + "";
+
+        addInstructionTab("push word ptr [bp" + str + "]");
     }
 
     @Override
     public void istore(int arg) {
         super.istore(arg);
+
+        String str;
+        if(arg > 0)
+            str = "+" + arg;
+        else
+            str = arg + "";
+
         addInstructionTab("pop ax");
-        addInstructionTab("mov word ptr [bp" + arg + "],ax");
+        addInstructionTab("mov word ptr [bp" + str + "],ax");
     }
 
     @Override
@@ -236,7 +247,7 @@ public class YvmAsm extends Yvm {
     }
 
     //CONDITIONNELLE
-    
+
     @Override
     public int goToFsiCond() {
       int i = super.goToFsiCond();
@@ -245,7 +256,7 @@ public class YvmAsm extends Yvm {
       return i;
     }
 
-    @Override 
+    @Override
     public int sinonCond() {
       int i = super.sinonCond();
       addInstructionTab("pop ax");
@@ -253,8 +264,8 @@ public class YvmAsm extends Yvm {
       addInstructionTab("je SINON"+i);
       return i;
     }
-    
-    @Override 
+
+    @Override
     public int fsiCond() {
       int i = super.fsiCond();
       addInstructionTab("FSI"+i+":");
@@ -262,7 +273,7 @@ public class YvmAsm extends Yvm {
     }
 
     //// ITERATIONS
-    
+
     @Override
     public int ouvreFaire() {
         int i = super.ouvreFaire();
@@ -292,4 +303,46 @@ public class YvmAsm extends Yvm {
         addInstructionTab("je FAIT"+i);
         return i;
     }
+
+    //Fonctions
+    @Override
+    public void principal() {
+      super.principal();
+      addInstruction("debut:");
+      addInstructionTab("STARTUPCODE");
+    }
+
+    @Override
+    public void ecrireFonc(String nom) {
+        super.ecrireFonc(nom);
+        addInstruction(nom + ":");
+    }
+
+    public void ouvreBloc(int n) {
+      super.ouvreBloc(n);
+      addInstructionTab("enter "+2*n+",0");
+    }
+
+    public void fermeBloc(int n) {
+      super.fermeBloc(n);
+      addInstructionTab("leave");
+      addInstructionTab("ret "+2*n);
+    }
+
+    public void reserveRetour() {
+      super.reserveRetour();
+      addInstructionTab("sub sp,2");
+    }
+
+    public void callFonc() {
+      super.callFonc();
+      addInstructionTab("call "+lastFonc);
+    }
+
+    public void retourne(int n) {
+      super.retourne(n);
+      addInstructionTab("pop ax");
+      addInstructionTab("mov [bp+"+(n+2)*2+"], ax");
+    }
+
 }

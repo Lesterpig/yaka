@@ -16,6 +16,12 @@ public class Yvm {
     protected Stack<Integer> pileCond;
     protected int indexCond;
 
+    //FONCTIONS
+    protected Stack<String> pileFonc;
+    protected Stack<Integer> indexParam;
+
+    protected String lastFonc;
+
     public Yvm() {
         this.out = "";
         //ITERATION
@@ -24,6 +30,9 @@ public class Yvm {
         //CONDITIONNELLE
         this.indexCond = 0;
         this.pileCond = new Stack<Integer>();
+        //FONCTIONS
+        this.pileFonc = new Stack<String>();
+        this.indexParam = new Stack<Integer>();
     }
 
     public String getOut() {
@@ -210,4 +219,72 @@ public class Yvm {
         return i;
     }
 
+    //FONCTIONS
+    //PILE
+    public void ajoutFonc(String nom) {
+        pileFonc.push(nom);
+    }
+
+    public String retraitFonc() {
+       return pileFonc.pop();
+    }
+
+    public String regardeFonc() {
+        try {
+            return pileFonc.peek();
+        }
+        catch(EmptyStackException e) {
+            return null;
+        }
+    }
+
+    public void incIndexParam() {
+        int i = indexParam.pop();
+        indexParam.push(++i);
+    }
+
+    public int getIndexParam() {
+        return indexParam.peek(); // TODO handle errors
+    }
+
+    public void resetIndexParam() {
+        indexParam.pop();
+    }
+
+    public void addIndexParam() {
+        indexParam.push(0);
+    }
+
+    //METHODES
+    public void principal() {
+        addInstruction("main:");
+    }
+
+    public void ecrireFonc(String nom) {
+        addInstruction(nom + ":");
+    }
+
+    //prend en param le nb de var locales
+    public void ouvreBloc(int n) {
+        addInstruction("ouvreBloc "+2*n);
+    }
+
+    //prend en param le nb de param
+    public void fermeBloc(int n) {
+        addInstruction("fermeBloc "+2*n);
+    }
+
+    public void reserveRetour() {
+        addInstruction("reserveRetour");
+    }
+
+    public void callFonc() {
+        addInstruction("call "+regardeFonc());
+        lastFonc = this.retraitFonc();
+    }
+
+    //prend en param le nb de param
+    public void retourne(int  n) {
+        addInstruction("ireturn "+ (n+2)*2);
+    }
 }

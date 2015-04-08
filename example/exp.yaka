@@ -1,5 +1,9 @@
 PROGRAMME entreeSortie
+PRINCIPAL
+CONST aa = 42;
 VAR ENTIER x,y,z;
+    ECRIRE(aa);
+    ALALIGNE;
     ECRIRE("x=");
     LIRE(x);
     ALALIGNE;
@@ -12,4 +16,5 @@ VAR ENTIER x,y,z;
     ALALIGNE;
     z=(x+y/2)/5;
     x=y+3*y-4;
+FPRINCIPAL
 FPROGRAMME

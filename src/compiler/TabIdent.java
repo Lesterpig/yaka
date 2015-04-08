@@ -2,24 +2,51 @@ package compiler;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.lang.IndexOutOfBoundsException;
 import generated.Yaka;
 
 public class TabIdent {
-  private HashMap<String,Ident> table;
+  private HashMap<String,IdFn> globaux;
+  private HashMap<String,Ident> locaux;
+
+  private int varNb;
 
   public TabIdent() {
-    table = new HashMap<String,Ident>();
+    globaux = new HashMap<String,IdFn>();
+    locaux  = new HashMap<String,Ident>();
+    varNb = 0;
   }
 
   public TabIdent(int size) {
-    table = new HashMap<String,Ident>(size);
+    globaux = new HashMap<String,IdFn>(size);
+    locaux  = new HashMap<String,Ident>(size);
+    varNb = 0;
   }
 
   public Ident searchIdent(String key) {
-    return table.get(key);
+    Ident local = locaux.get(key);
+    if(local != null)
+      return local;
+
+    IdFn currentFn = searchFn(Yaka.yvm.regardeFonc());
+    if(currentFn != null)
+      return currentFn.searchParametre(key);
+
+    return null;
+  }
+
+  public IdFn searchFn(String key) {
+    return globaux.get(key);
   }
 
   public void computeIdent(String ident) {
+
+
+    IdFn fn = searchFn(ident);
+    if(fn != null)
+      return;
+
     Ident id = searchIdent(ident);
 
     if(id == null) {
@@ -39,36 +66,54 @@ public class TabIdent {
   }
 
   public boolean existIdent(String key) {
-    return table.containsKey(key);
+    return searchIdent(key) != null;
   }
 
   public void addIdent(String key, Ident id) {
-    table.put(key, id);
+    locaux.put(key, id);
+  }
+
+  public void addVariable(String key, TypeList type) {
+    if(type == TypeList.FONCTION) {
+      Yaka.ajoutLog("La variable locale " + key + " ne peut pas être une fonction");
+      return;
+    }
+
+    IdVar id = new IdVar(type, -2 * (++varNb));
+    addIdent(key, id);
+  }
+
+  public void addFn(String key, IdFn id) {
+    globaux.put(key, id);
+  }
+
+  public void clear() {
+    locaux.clear();
+    varNb = 0;
   }
 
   public int getNbVars() {
-    int i = 0;
-    for (Map.Entry<String, Ident> entry : table.entrySet()) {
-      if(entry.getValue() instanceof IdVar)
-        i++;
-    }
-    return i;
+    return varNb;
   }
 
-  public String toString() {
-    String res = "\nTabIdent:\n";
-    for (Map.Entry<String, Ident> entry : table.entrySet()) {
-      res += "  ";
-        if (entry.getValue() instanceof IdConst)
-          res += "CONST ";
-        else
-          res += "VAR   ";
-
-      res += entry.getKey() + entry.getValue().toString() + "\n";
+  public int getNbParamsFn(String key) {
+    IdFn fn = searchFn(key);
+    if(fn == null) {
+      Yaka.ajoutLog("La fonction " + key + " n'a pas ete declaree.");
+      return -1;
     }
 
-    return res;
+    else
+      return fn.getParametres().size();
   }
 
+  public TypeList getTypeOfParam(String fonc, int pos) {
+    try {
+      IdFn fn = searchFn(fonc);
+      return (new ArrayList<TypeList>(fn.parametres.values())).get(pos);
+    } catch (IndexOutOfBoundsException e) {
+      Yaka.ajoutLog("Trop de parametres pour la fonction " + fonc);
+      return TypeList.ERREUR;
+    }
+  }
 }
-
