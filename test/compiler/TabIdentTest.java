@@ -16,18 +16,6 @@ public class TabIdentTest {
     }
 
     @Test
-    public void searchIdentTest() {
-        t.addVariable("john", TypeList.ENTIER);
-        Ident i = t.searchIdent("john");
-        assertEquals(i.getType(), TypeList.ENTIER);
-        assertEquals(Yaka.errorLog, "");
-
-        t.addVariable("fail", TypeList.FONCTION);
-        assertEquals(t.searchIdent("fail"), null);
-        assertFalse(Yaka.errorLog.equals(""));
-    }
-
-    @Test
     public void searchFnTest() {
         IdFn i = new IdFn(TypeList.ENTIER);
         t.addFn("ripper", i);

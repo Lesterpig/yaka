@@ -5,8 +5,8 @@ public class Declaration {
 
 	private TypeList type;
 	private String ident;
-    private int entier;
-    private boolean booleen;
+  private int entier;
+  private boolean booleen;
 
 	public Declaration() {
 		type = TypeList.ERREUR;
@@ -29,38 +29,38 @@ public class Declaration {
 		ident = i;
 	}
 
-    public int getEntier() {
-        return entier;
-    }
+  public int getEntier() {
+      return entier;
+  }
 
-    public void setEntier(int e) {
-        type = TypeList.ENTIER;
-        entier = e;
-    }
+  public void setEntier(int e) {
+      type = TypeList.ENTIER;
+      entier = e;
+  }
 
-    public void setBooleen(boolean b) {
-      type = TypeList.BOOLEEN;
-      booleen = b;
-    }
+  public void setBooleen(boolean b) {
+    type = TypeList.BOOLEEN;
+    booleen = b;
+  }
 
-    public void setConstanteExistante(String s) {
-      if(Yaka.tabIdent.existIdent(s)) {
-        Ident origConst = Yaka.tabIdent.searchIdent(s);
+  public void setConstanteExistante(String s) {
+    if(Yaka.tabIdent.existIdent(s)) {
+      Ident origConst = Yaka.tabIdent.searchIdent(s);
 
-        if (origConst instanceof IdConst) {
-          type = origConst.getType();
-          if (type == TypeList.BOOLEEN) {
-            booleen = ((IdConst)origConst).getValueBool();
-          } else {
-            entier = ((IdConst)origConst).getValue();
-          }
+      if (origConst instanceof IdConst) {
+        type = origConst.getType();
+        if (type == TypeList.BOOLEEN) {
+          booleen = ((IdConst)origConst).getValueBool();
         } else {
-          Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante.");
+          entier = ((IdConst)origConst).getValue();
         }
       } else {
-        Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas.");
+        Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'est pas une constante.");
       }
+    } else {
+      Yaka.ajoutLog("Impossible d'affecter "+s+" à "+ident+" car "+s+" n'existe pas.");
     }
+  }
 
 	public TabIdent getTabIdent() {
 		return Yaka.tabIdent;
@@ -95,7 +95,7 @@ public class Declaration {
             cons = new IdConst(booleen);
         else
             cons = new IdConst(entier);
-        
+
         Yaka.tabIdent.addIdent(ident, cons);
     }
   }

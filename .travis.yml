@@ -3,7 +3,7 @@ install:
   - "sudo apt-get install javacc dosemu"
 script:
   - "make"
-  #- "make test"
+  - "make test"
   - "./travis/configure-layout.sh"
   - "make download-tasm"
   - "make package"

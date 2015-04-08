@@ -3,7 +3,7 @@
 
 # Vars
 
-TESTS = compiler.OperateurTest compiler.ExpressionTest compiler.YvmTest compiler.YvmAsmTest compiler.DeclarationTest compiler.TabIdentTest
+TESTS = compiler.OperateurTest compiler.ExpressionTest compiler.YvmTest compiler.YvmAsmTest compiler.TabIdentTest
 
 # Targets
 
