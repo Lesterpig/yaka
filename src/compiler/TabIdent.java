@@ -29,9 +29,11 @@ public class TabIdent {
     if(local != null)
       return local;
 
-    IdFn currentFn = searchFn(Yaka.yvm.regardeFonc());
-    if(currentFn != null)
+    IdFn currentFn = searchFn(Yaka.fonctionActive);
+
+    if(currentFn != null) {
       return currentFn.searchParametre(key);
+    }
 
     return null;
   }
@@ -42,8 +44,8 @@ public class TabIdent {
 
   public void computeIdent(String ident) {
 
-
     IdFn fn = searchFn(ident);
+
     if(fn != null)
       return;
 

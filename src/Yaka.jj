@@ -12,6 +12,7 @@ public class Yaka {
     public static Expression expression;
     public static Yvm yvm;
     public static String errorLog = "";
+    public static String fonctionActive = "";
 
     public static void ajoutLog(String s) {
         errorLog += "Ligne " + YakaTokenManager.nbLig + " : " + s + "\n";
@@ -188,7 +189,7 @@ void analyse() : {}
     <PROGRAMME>
     <ident>
     ( declFonction() )*
-    <PRINCIPAL> { yvm.principal(); }
+    <PRINCIPAL> { yvm.principal(); fonctionActive = ""; }
     bloc()
     <FPRINCIPAL>
     <FPROGRAMME> { yvm.queue(); }
@@ -203,6 +204,7 @@ void declFonction() : {}
 			tabIdent.addFn(YakaTokenManager.identLu, fn);
             yvm.ajoutFonc(YakaTokenManager.identLu);
 			yvm.ecrireFonc(YakaTokenManager.identLu);
+            fonctionActive = YakaTokenManager.identLu;
 			}
     paramForms()
     bloc() { yvm.fermeBloc(tabIdent.getNbParamsFn(yvm.regardeFonc())); }
