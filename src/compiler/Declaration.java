@@ -101,8 +101,12 @@ public class Declaration {
   }
 
   public void testAffectation(String s) {
-		if(!Yaka.tabIdent.existIdent(s))
+    Ident ide = Yaka.tabIdent.searchIdent(s);
+		if(ide == null) {
 			Yaka.ajoutLog("Affectation impossible, l'identifiant " + s + " n'existe pas.");
+    } else if (ide instanceof IdConst) {
+      Yaka.ajoutLog("Affectation impossible, cet identifiant est une constante");
+    }
   }
 
   public void testLecture(String s) {
