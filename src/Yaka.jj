@@ -419,8 +419,8 @@ void valeur () : {}
     (  {yvm.ajoutFonc(YakaTokenManager.identLu); yvm.addIndexParam(); expression.ajoutType(tabIdent.searchFn(yvm.regardeFonc()).getTypeRes()); yvm.reserveRetour(); }
        argumentsFonction()
        { yvm.callFonc();  } )?
-|   <VRAI> { expression.ajoutType(TypeList.BOOLEEN); }
-|   <FAUX> { expression.ajoutType(TypeList.BOOLEEN); }
+|   <VRAI> { expression.ajoutType(TypeList.BOOLEEN); yvm.iconst(-1); }
+|   <FAUX> { expression.ajoutType(TypeList.BOOLEEN); yvm.iconst(0);}
 
 }
 
