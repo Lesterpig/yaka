@@ -5,6 +5,9 @@ Yaka
 
 Yaka compiler - INSA Rennes Project.
 
+**WARNING** : this is a project for EDUCATIONAL PURPOSES ONLY.
+The code is really ugly, and should not be used in production.
+
 Presentation
 ------------
 
