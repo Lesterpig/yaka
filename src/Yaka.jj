@@ -299,6 +299,10 @@ void retourne() : {}
 {
     <RETOURNE>
     expression() {
+                    if(yvm.regardeFonc() == null) {
+                        Yaka.ajoutLog("RETOURNE impossible dans le main");
+                        return;
+                    }
                     if(expression.regardeType() != tabIdent.searchFn(yvm.regardeFonc()).getTypeRes())
                         Yaka.ajoutLog("Le type de retour n'est pas celui attendu : obtenu " + expression.regardeType() + " ; attendu " + tabIdent.searchFn(yvm.regardeFonc()).getTypeRes());
                     yvm.retourne(tabIdent.getNbParamsFn(yvm.regardeFonc()));
@@ -437,6 +441,7 @@ void argumentsFonction() : {}
                                             if(ta2 != to2)
                                                 Yaka.ajoutLog("L'expression retourne un type " + to2 + " au lieu d'un " + ta2 + ". Parametre " + yvm.getIndexParam());
                                             yvm.incIndexParam();
+                                            expression.retraitType();
                                             }
                         )*
         )?
@@ -446,7 +451,6 @@ void argumentsFonction() : {}
                 if(ia > io)
                     Yaka.ajoutLog("Pas assez de parametres pour la fonction " + yvm.regardeFonc() + " : obtenu " + io + ", attendu " + ia);
                 yvm.resetIndexParam();
-                expression.retraitType();
             }
 }
 
