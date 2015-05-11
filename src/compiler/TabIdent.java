@@ -86,6 +86,10 @@ public class TabIdent {
   }
 
   public void addFn(String key, IdFn id) {
+    if(globaux.get(key) != null) {
+      Yaka.ajoutLog("La fonction " + key + " est déjà déclarée");
+      return;
+    }
     globaux.put(key, id);
   }
 
